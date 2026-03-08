@@ -22,19 +22,28 @@ class _InventoryFormsState extends State<InventoryForms> {
   final PageController _pageController = PageController();
   final TextEditingController studentNoController = TextEditingController();
 
-
+  int page = 0;
   void nextPage() {
     _pageController.nextPage(
-      duration: Duration(milliseconds: 800),
+      duration: Duration(milliseconds: 500),
       curve: Curves.easeInOutCubicEmphasized,
     );
+    
+    if (page > 2) {
+      debugPrint('Insert mo na bai');
+    } else {
+      page ++;
+      print(page);
+    }
   }
 
   void previousPage() {
     _pageController.previousPage(
-      duration: Duration(milliseconds: 800),
+      duration: Duration(milliseconds: 500),
       curve: Curves.easeInOutCubicEmphasized,
     );
+    page --;
+    print(page);
   }
 
   @override
