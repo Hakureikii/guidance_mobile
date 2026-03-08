@@ -94,6 +94,42 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                       label: "YEAR GRADUATED",
                     ),
                   ),
+
+                  // College
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      readOnly: false,
+                      icon: Icons.school_outlined,
+                      label: "COLLEGE",
+                      hint: 'If not a transferee, please type N/A',
+                    ),
+                  ),
+
+                  // Membership in School Organization
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      readOnly: false,
+                      icon: Icons.group,
+                      label: "SCHOOL ORGANIZATION",
+                      hint: 'If none, please type N/A',
+                    ),
+                  ),
+
+                  // Extra-curricular activities in high school
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      readOnly: false,
+                      icon: Icons.local_activity,
+                      label: "EXTRA-CURRICULAR (HIGH SCHOOL)",
+                      hint: 'If none, please type N/A',
+                    ),
+                  ),
                 ],
               ),
             ),
