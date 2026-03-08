@@ -57,7 +57,10 @@ class _InventoryFormsState extends State<InventoryForms> {
                   previousPage: previousPage,
                 ),
 
-                EducationalBackground(),
+                EducationalBackground(
+                  nextPage: nextPage, 
+                  previousPage: previousPage,
+                  ),
 
                 Health(),
               ],

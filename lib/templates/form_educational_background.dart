@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import '../custom_widgets/page_container.dart';
+import '../custom_widgets/custom_field.dart';
 
 class EducationalBackground extends StatefulWidget {
-  const EducationalBackground({super.key});
+  final VoidCallback nextPage;
+  final VoidCallback previousPage;
+  const EducationalBackground({
+    super.key,
+    required this.nextPage,
+    required this.previousPage,
+  });
 
   @override
   State<EducationalBackground> createState() => _EducationalBackgroundState();
@@ -11,27 +19,86 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              offset: Offset(0, 5),
-              blurRadius: 10,
-              spreadRadius: 2,
+      child: PageContainer(
+        pageTitle: 'Educational Background',
+        onNext: widget.nextPage,
+        onPrevious: widget.previousPage,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 20),
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Icon(Icons.school),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, bottom: 20),
+                        child: Text(
+                          'SCHOOLS',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 14.5,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Elementary School
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      readOnly: false,
+                      icon: Icons.school_outlined,
+                      label: "ELEMENTARY SCHOOL",
+                    ),
+                  ),
+
+                  // Year Graduated on Elementary
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      readOnly: false,
+                      icon: Icons.calendar_month,
+                      label: "YEAR GRADUATED",
+                    ),
+                  ),
+
+                  // High School
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      readOnly: false,
+                      icon: Icons.school_outlined,
+                      label: "HIGH SCHOOL",
+                    ),
+                  ),
+
+                  // Year Graduated on High School
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      readOnly: false,
+                      icon: Icons.calendar_month,
+                      label: "YEAR GRADUATED",
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.9,
-
-        child: SingleChildScrollView(child: Column(children: [
-              
-            ],
-          )),
       ),
     );
   }
