@@ -6,12 +6,33 @@ import 'package:intl/intl.dart';
 
 class PersonalInformationForm extends StatefulWidget {
   final VoidCallback nextPage;
-  final TextEditingController studentNoController;
+  final TextEditingController? studentNoController;
+  final TextEditingController? studentfNameController;
+  final TextEditingController? studentmNameController;
+  final TextEditingController? studentlNameController;
+  final TextEditingController? studentNicknameController;
+  final TextEditingController? studentCourse;
+  final TextEditingController? studentYear;
+  final TextEditingController? studentSection;
+
+  final TextEditingController? placeOfBirth;
+  final TextEditingController? studentAge;
+
 
   const PersonalInformationForm({
     super.key, 
-    required this.studentNoController,
+    
     required this.nextPage,
+    this.studentNoController,
+    this.studentfNameController,
+    this.studentmNameController,
+    this.studentlNameController,
+    this.studentNicknameController,
+    this.studentCourse,
+    this.studentYear,
+    this.studentSection,
+    this.placeOfBirth,
+    this.studentAge
     });
 
   @override
@@ -69,6 +90,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.studentfNameController,
                 readOnly: false,
                 label: 'FIRST NAME',
                 icon: Icons.person_2,
@@ -80,6 +102,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.studentmNameController,
                 readOnly: false,
                 label: 'MIDDLE NAME',
                 icon: Icons.person_2,
@@ -91,6 +114,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.studentlNameController,
                 readOnly: false,
                 label: 'LAST NAME',
                 icon: Icons.person_2,
@@ -102,6 +126,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.studentNicknameController,
                 readOnly: false,
                 label: 'NICKNAME',
                 icon: Icons.perm_identity,
@@ -113,6 +138,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.studentCourse,
                 readOnly: false,
                 label: 'COURSE',
                 icon: Icons.menu_book,
@@ -125,6 +151,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.studentYear,
                 readOnly: false,
                 label: 'YEAR LEVEL',
                 icon: Icons.school,
@@ -136,7 +163,8 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
             Container(
               padding: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width * 0.8,
-              child: const CustomField(
+              child: CustomField(
+                textController: widget.studentSection,
                 readOnly: false,
                 label: 'SECTION',
                 icon: Icons.group,
@@ -256,6 +284,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: CustomField(
+                      textController: widget.placeOfBirth,
                       label: 'PLACE OF BIRTH',
                       readOnly: false,
                       icon: Icons.location_city,
@@ -266,6 +295,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: CustomField(
+                      textController: widget.studentAge,
                       label: 'AGE',
                       readOnly: false,
                       icon: Icons.person_2,

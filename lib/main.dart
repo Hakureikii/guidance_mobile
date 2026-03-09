@@ -20,21 +20,25 @@ class InventoryForms extends StatefulWidget {
 
 class _InventoryFormsState extends State<InventoryForms> {
   final PageController _pageController = PageController();
-  final TextEditingController studentNoController = TextEditingController();
+  Map <String, TextEditingController> personalInformationController = {
+      "studentNo": TextEditingController(),
+      "firstName": TextEditingController(),
+      "middleName": TextEditingController(),
+      "lastName": TextEditingController(),
+      "nickname": TextEditingController(),
+      "course": TextEditingController(),
+      "year": TextEditingController(),
+      "section": TextEditingController(),
+      "placeOfBirth": TextEditingController(),
+      "studentAge": TextEditingController(),
+  };
 
-  int page = 0;
+
   void nextPage() {
     _pageController.nextPage(
       duration: Duration(milliseconds: 500),
       curve: Curves.easeInOutCubicEmphasized,
     );
-    
-    if (page > 2) {
-      debugPrint('Insert mo na bai');
-    } else {
-      page ++;
-      print(page);
-    }
   }
 
   void previousPage() {
@@ -42,8 +46,6 @@ class _InventoryFormsState extends State<InventoryForms> {
       duration: Duration(milliseconds: 500),
       curve: Curves.easeInOutCubicEmphasized,
     );
-    page --;
-    print(page);
   }
 
   @override
@@ -58,7 +60,16 @@ class _InventoryFormsState extends State<InventoryForms> {
               children: [
                 PersonalInformationForm(
                   nextPage: nextPage,
-                  studentNoController: studentNoController,
+                  studentNoController: personalInformationController['studentNo'],
+                  studentfNameController: personalInformationController['firstName'],
+                  studentmNameController: personalInformationController['middleName'],
+                  studentlNameController: personalInformationController['lastName'],
+                  studentNicknameController: personalInformationController['nickname'],
+                  studentCourse: personalInformationController['course'],
+                  studentYear: personalInformationController['year'],
+                  studentSection: personalInformationController['section'],
+                  placeOfBirth: personalInformationController['placeOfBirth'],
+                  studentAge: personalInformationController['studentAge'],
                 ),
           
                 FamilyBackground(
