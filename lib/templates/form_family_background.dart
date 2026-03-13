@@ -4,10 +4,17 @@ import '../custom_widgets/radio_groups.dart';
 import '../custom_widgets/page_container.dart';
 
 class FamilyBackground extends StatefulWidget {
+
+  // VoidCallbacks and Functions
   final VoidCallback nextPage;
   final VoidCallback previousPage;
+  final VoidCallback addSiblings;
+  final Function(int) removeSiblings;
 
   final String? sources;
+
+  // Siblings Map
+  final List<Map<String, TextEditingController>> siblings;
 
   // Father's Controllers
   final TextEditingController? fatherName;
@@ -39,8 +46,12 @@ class FamilyBackground extends StatefulWidget {
 
   const FamilyBackground({
     super.key,
+
+    // Functions
     required this.nextPage,
     required this.previousPage,
+    required this.addSiblings,
+    required this.removeSiblings,
 
     this.sources,
 
@@ -68,6 +79,9 @@ class FamilyBackground extends StatefulWidget {
 
     // Other Details
     this.annualIncome,
+
+    // Siblings
+    required this.siblings,
 
     // Radio Box Properties
     required this.sourceOnChanged,
@@ -421,6 +435,60 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                 ),
               ],
             ),
+
+            Column(
+              children: List.generate(widget.siblings.length, (index) {
+                return Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 20),
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: CustomField(
+                        icon: Icons.person_2,
+                        textController: widget.siblings[index]["Name"],
+                        label: "NAME", 
+                        readOnly: false,
+                      ),
+                    ),
+
+                      Container(
+                        padding: EdgeInsets.only(bottom: 20),
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: CustomField(
+                          icon: Icons.person_2,
+                          textController: widget.siblings[index]["Age"],
+                          label: "AGE", 
+                          readOnly: false,
+                        ),
+                      ),
+
+                      Container(
+                        padding: EdgeInsets.only(bottom: 20),
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: CustomField(
+                          icon: Icons.work,
+                          textController: widget.siblings[index]["Occupation"],
+                          label: "OCCUPATION/SCHOOL", 
+                          readOnly: false,
+                        ),
+
+                      
+                      ),
+
+                      ElevatedButton(
+                        onPressed: () => {
+                          widget.removeSiblings(index)
+                        }, 
+                        child: Text("Remove Siblings")
+                        )
+                  ],
+                );
+              })
+            ),
+            ElevatedButton(
+              onPressed: widget.addSiblings,
+              child: Text("Add Sibling"),
+            )
           ],
         ),
       ),

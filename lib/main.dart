@@ -54,7 +54,6 @@ class _InventoryFormsState extends State<InventoryForms> {
   };
 
   Map <String, TextEditingController> familyBackgroundController = {
-
     // Father's Details
     "fatherName": TextEditingController(),
     "fatherAge": TextEditingController(),
@@ -79,11 +78,9 @@ class _InventoryFormsState extends State<InventoryForms> {
     // Other Details
     "annualIncome": TextEditingController(),
     "otherSources": TextEditingController(),
-
   };
 
   Map <String, TextEditingController> educationalBackgroundController = {
-
     // School Details
     "elementarySchool": TextEditingController(),
     "elementaryYearGraduated": TextEditingController(),
@@ -95,12 +92,11 @@ class _InventoryFormsState extends State<InventoryForms> {
   };
 
   Map <String, TextEditingController> health = {
-
-    // Health Details
     "notGoodCondition": TextEditingController(),
     "disabilities": TextEditingController(),
   };
 
+  List <Map<String, TextEditingController>> siblings = [];
   String? civilstatus;
   String? gender;
   String? livingArrangement;
@@ -121,8 +117,6 @@ class _InventoryFormsState extends State<InventoryForms> {
     );
 
     if (selectedDate != null) {
-      // Format the date as needed (e.g., using the intl package's DateFormat)
-      // Example format: 'MM/dd/yyyy'
       personalInformationController["dateController"]!.text = DateFormat('MM/dd/yyyy').format(selectedDate);
     }
   }
@@ -139,6 +133,22 @@ class _InventoryFormsState extends State<InventoryForms> {
       duration: Duration(milliseconds: 500),
       curve: Curves.easeInOutCubicEmphasized,
     );
+  }
+
+  void addSiblings() {
+    setState(() {
+      siblings.add({
+        "Name": TextEditingController(),
+        "Age": TextEditingController(),
+        "Occupation": TextEditingController(),
+      });
+    });
+  }
+
+  void removeSiblings(int index) {
+    setState(() {
+      siblings.removeAt(index);
+    });
   }
 
   @override
@@ -220,6 +230,10 @@ class _InventoryFormsState extends State<InventoryForms> {
                 FamilyBackground(
                   nextPage: nextPage,
                   previousPage: previousPage,
+
+                  addSiblings: addSiblings,
+                  removeSiblings: removeSiblings,
+                  siblings: siblings,
 
                   fatherName: familyBackgroundController["fatherName"],
                   fatherAge: familyBackgroundController["fatherAge"],
