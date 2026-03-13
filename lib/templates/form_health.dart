@@ -6,10 +6,32 @@ import '../custom_widgets/custom_field.dart';
 class Health extends StatefulWidget {
   final VoidCallback nextPage;
   final VoidCallback previousPage;
+
+  // Radio on changed property
+  final Function(String?) healthConditionOnChanged;
+
+  // Radio Box Values
+  final String? healthCondition;
+
+  // Text Controllers
+  final TextEditingController? notGoodCondition;
+  final TextEditingController? disabilities;
+
   const Health({
     super.key,
     required this.nextPage,
     required this.previousPage,
+
+    // Radio on changed property
+    required this.healthConditionOnChanged,
+
+    // Radio Box Values
+    this.healthCondition,
+
+    // Text Controllers
+    this.notGoodCondition,
+    this.disabilities,
+
     });
 
   @override
@@ -17,7 +39,8 @@ class Health extends StatefulWidget {
 }
 
 class _HealthState extends State<Health> {
-  String? healthCondition;
+
+  // String? healthCondition;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -33,12 +56,8 @@ class _HealthState extends State<Health> {
                 icon: Icons.health_and_safety,
                 radioTitle: 'HEALTH CONDITION',
                 options: ['GOOD', 'NOT GOOD'],
-                selectedValue: healthCondition,
-                onChanged: (value) {
-                  setState(() {
-                    healthCondition = value;
-                  });
-                },
+                selectedValue: widget.healthCondition,
+                onChanged: widget.healthConditionOnChanged
               ),
             ),
             
@@ -47,7 +66,8 @@ class _HealthState extends State<Health> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
-                enabled: healthCondition == 'NOT GOOD',
+                textController: widget.notGoodCondition,
+                enabled: widget.healthCondition == 'NOT GOOD',
                 readOnly: false,
                 icon: Icons.health_and_safety_outlined,
                 label: "WHY",
@@ -59,6 +79,7 @@ class _HealthState extends State<Health> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.disabilities,
                 readOnly: false,
                 icon: Icons.medical_information,
                 label: "PHYSICAL DISABILITIES/DEFECTS",

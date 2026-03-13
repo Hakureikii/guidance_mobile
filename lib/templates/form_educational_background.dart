@@ -5,10 +5,30 @@ import '../custom_widgets/custom_field.dart';
 class EducationalBackground extends StatefulWidget {
   final VoidCallback nextPage;
   final VoidCallback previousPage;
+
+  // Text Controllers
+  final TextEditingController? elementarySchool;
+  final TextEditingController? elementaryYearGraduated;
+  final TextEditingController? highSchool;
+  final TextEditingController? highschoolYearGraduated;
+  final TextEditingController? collegeSchool;
+  final TextEditingController? schoolOrganization;
+  final TextEditingController? extraCurricularActivities;
+
   const EducationalBackground({
     super.key,
     required this.nextPage,
     required this.previousPage,
+
+    // Text Controllers
+    this.elementarySchool,
+    this.elementaryYearGraduated,
+    this.highSchool,
+    this.highschoolYearGraduated,
+    this.collegeSchool,
+    this.schoolOrganization,
+    this.extraCurricularActivities,
+
   });
 
   @override
@@ -56,6 +76,7 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.elementarySchool,
                       readOnly: false,
                       icon: Icons.school_outlined,
                       label: "ELEMENTARY SCHOOL",
@@ -67,6 +88,7 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.elementaryYearGraduated,
                       readOnly: false,
                       icon: Icons.calendar_month,
                       label: "YEAR GRADUATED",
@@ -78,6 +100,7 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.highSchool,
                       readOnly: false,
                       icon: Icons.school_outlined,
                       label: "HIGH SCHOOL",
@@ -89,6 +112,7 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.highschoolYearGraduated,
                       readOnly: false,
                       icon: Icons.calendar_month,
                       label: "YEAR GRADUATED",
@@ -100,6 +124,7 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.collegeSchool,
                       readOnly: false,
                       icon: Icons.school_outlined,
                       label: "COLLEGE",
@@ -112,6 +137,7 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.schoolOrganization,
                       readOnly: false,
                       icon: Icons.group,
                       label: "SCHOOL ORGANIZATION",
@@ -124,6 +150,7 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.extraCurricularActivities,
                       readOnly: false,
                       icon: Icons.local_activity,
                       label: "EXTRA-CURRICULAR (HIGH SCHOOL)",

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import '../custom_widgets/custom_field.dart';
 import '../custom_widgets/radio_groups.dart';
 import '../custom_widgets/page_container.dart';
-import 'package:intl/intl.dart';
 
 class PersonalInformationForm extends StatefulWidget {
   final VoidCallback nextPage;
+
+  // Date of birth on tap function
+  final VoidCallback onTap;
+
+  // Text Editing Controllers
   final TextEditingController? studentNoController;
   final TextEditingController? studentfNameController;
   final TextEditingController? studentmNameController;
@@ -15,14 +19,63 @@ class PersonalInformationForm extends StatefulWidget {
   final TextEditingController? studentYear;
   final TextEditingController? studentSection;
 
+  final TextEditingController? othersStatus;
+
+  final TextEditingController? spouseName;
+  final TextEditingController? spouseContactNumber;
+
+  // Other Details
+  final TextEditingController? dateController;
   final TextEditingController? placeOfBirth;
   final TextEditingController? studentAge;
 
+  final TextEditingController? otherGender;
+
+  final TextEditingController? presentAddress;
+  final TextEditingController? phoneNumber;
+  final TextEditingController? emailAddress;
+  final TextEditingController? religion;
+  final TextEditingController? provincialAddress;
+  final TextEditingController? homePhoneNumber;
+
+  final TextEditingController? otherLivingArrangement;
+  final TextEditingController? ipMemberField;
+
+  // Living Arrangement
+
+  // Radio Values
+  final String? civilStatus;
+  final String? gender;
+  final String? livingArrangement;
+  final String? ipMember;
+
+  // Radio onChanged Property
+  final Function(String?) onStatusChanged;
+  final Function(String?) genderOnChanged;
+  final Function(String?) livingArrangementOnChanged;
+  final Function(String?) ipMemberOnChanged;
 
   const PersonalInformationForm({
     super.key, 
     
+    // functions
     required this.nextPage,
+    required this.onTap,
+    
+    // Radio box values and handlers
+    this.civilStatus,
+    required this.onStatusChanged,
+
+    this.gender,
+    required this.genderOnChanged,
+
+    this.livingArrangement,
+    required this.livingArrangementOnChanged,
+
+    this.ipMember,
+    required this.ipMemberOnChanged,
+
+    // Text Controllers
     this.studentNoController,
     this.studentfNameController,
     this.studentmNameController,
@@ -31,8 +84,26 @@ class PersonalInformationForm extends StatefulWidget {
     this.studentCourse,
     this.studentYear,
     this.studentSection,
+
+    this.othersStatus,
+
+    this.spouseName,
+    this.spouseContactNumber,
+
+    this.dateController,
     this.placeOfBirth,
-    this.studentAge
+    this.studentAge,
+
+    this.otherGender,
+
+    this.presentAddress,
+    this.phoneNumber,
+    this.emailAddress,
+    this.religion,
+    this.provincialAddress,
+    this.homePhoneNumber,
+    this.otherLivingArrangement,
+    this.ipMemberField,
     });
 
   @override
@@ -41,28 +112,6 @@ class PersonalInformationForm extends StatefulWidget {
 }
 
 class _PersonalInformationFormState extends State<PersonalInformationForm> {
-  String? civilStatus;
-  String? gender;
-  String? livingArrangement;
-  String? ipMember;
-
-  // Field Values
-  final TextEditingController _dateController = TextEditingController();
-
-  Future<void> _selectDate(BuildContext context) async {
-    DateTime? selectedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-
-    if (selectedDate != null) {
-      // Format the date as needed (e.g., using the intl package's DateFormat)
-      // Example format: 'MM/dd/yyyy'
-      _dateController.text = DateFormat('MM/dd/yyyy').format(selectedDate);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,22 +225,19 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               icon: Icons.group,
               radioTitle: 'CIVIL STATUS',
               options: ['SINGLE', 'MARRIED', 'OTHERS'],
-              selectedValue: civilStatus,
-              onChanged: (value) {
-                setState(() {
-                  civilStatus = value;
-                });
-              },
+              selectedValue: widget.civilStatus,
+              onChanged: widget.onStatusChanged,
             ),
 
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.othersStatus,
                 readOnly: false,
                 icon: Icons.list,
                 label: '',
                 hint: 'If others, please specify',
-                enabled: civilStatus == 'OTHERS',
+                enabled: widget.civilStatus == 'OTHERS',
               ),
             ),
 
@@ -224,9 +270,10 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                     padding: const EdgeInsets.only(top: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.spouseName,
                       readOnly: false,
                       enabled:
-                          civilStatus == 'MARRIED' || civilStatus == 'OTHERS',
+                          widget.civilStatus == 'MARRIED' || widget.civilStatus == 'OTHERS',
                       label: 'SPOUSE NAME',
                       hint: 'eg. John Doe',
                       icon: Icons.group,
@@ -238,9 +285,10 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                     padding: const EdgeInsets.only(top: 20, bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.spouseContactNumber,
                       readOnly: false,
                       enabled:
-                          civilStatus == 'MARRIED' || civilStatus == 'OTHERS',
+                          widget.civilStatus == 'MARRIED' || widget.civilStatus == 'OTHERS',
                       label: 'CONTACT NO.',
                       hint: '09XXXXXXXXX',
                       icon: Icons.group,
@@ -271,13 +319,11 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                   // Date of Birth
                   CustomField(
                     icon: Icons.calendar_today,
-                    textController: _dateController,
+                    textController: widget.dateController,
                     hint: 'MM/DD/YYYY',
                     readOnly: true,
                     label: 'DATE OF BIRTH',
-                    onTap: () {
-                      _selectDate(context);
-                    },
+                    onTap: widget.onTap,
                   ),
 
                   // Place Of Birth
@@ -309,12 +355,8 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               icon: Icons.transgender,
               radioTitle: 'GENDER',
               options: ['MALE', 'FEMALE', 'OTHERS'],
-              selectedValue: gender,
-              onChanged: (value) {
-                setState(() {
-                  gender = value;
-                });
-              },
+              selectedValue: widget.gender,
+              onChanged: widget.genderOnChanged,
             ),
 
             // Gender Field
@@ -322,11 +364,12 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.otherGender,
                 readOnly: false,
                 icon: Icons.list,
                 label: '',
                 hint: 'If others, please specify',
-                enabled: gender == 'OTHERS',
+                enabled: widget.gender == 'OTHERS',
               ),
             ),
 
@@ -335,6 +378,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.presentAddress,
                 readOnly: false,
                 icon: Icons.location_city,
                 label: 'PRESENT ADDRESS',
@@ -346,6 +390,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.phoneNumber,
                 readOnly: false,
                 icon: Icons.phone,
                 label: 'PHONE NO.',
@@ -358,6 +403,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.emailAddress,
                 readOnly: false,
                 icon: Icons.email,
                 label: 'EMAIL ADDRESS',
@@ -370,6 +416,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.religion,
                 readOnly: false,
                 icon: Icons.church,
                 label: 'RELIGION',
@@ -382,6 +429,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.provincialAddress,
                 readOnly: false,
                 icon: Icons.location_city,
                 label: 'HOME/PROVINCIAL ADDRESS',
@@ -392,6 +440,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.homePhoneNumber,
                 readOnly: false,
                 icon: Icons.phone,
                 label: 'HOME PHONE NO.',
@@ -404,23 +453,20 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               icon: Icons.home,
               radioTitle: 'LIVING ARRANGEMENT',
               options: ['LIVING WITH PARENTS', 'LIVING WITH RELATIVES', 'OTHERS'],
-              selectedValue: livingArrangement,
-              onChanged: (value) {
-                setState(() {
-                  livingArrangement = value;
-                });
-              },
+              selectedValue: widget.livingArrangement,
+              onChanged: widget.livingArrangementOnChanged,
             ),
 
             // Living Arrangement Field
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.otherLivingArrangement,
                 readOnly: false,
                 icon: Icons.list,
                 label: '',
                 hint: 'If others, please specify',
-                enabled: livingArrangement == 'OTHERS',
+                enabled: widget.livingArrangement == 'OTHERS',
               ),
             ),
 
@@ -429,24 +475,21 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
               icon: Icons.group,
               radioTitle: 'IP MEMBER',
               options: ['YES', 'NO'],
-              selectedValue: ipMember,
-              onChanged: (value) {
-                setState(() {
-                  ipMember = value;
-                });
-              },
+              selectedValue: widget.ipMember,
+              onChanged: widget.ipMemberOnChanged,
             ),
 
-            // Living Arrangement Field
+            // IP MEMEBER Field
             Container(
               padding: EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.ipMemberField,
                 readOnly: false,
                 icon: Icons.list,
                 label: '',
                 hint: 'If yes, please specify',
-                enabled: ipMember == 'YES',
+                enabled: widget.ipMember == 'YES',
               ),
             ),
           ],

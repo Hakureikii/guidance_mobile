@@ -7,10 +7,70 @@ class FamilyBackground extends StatefulWidget {
   final VoidCallback nextPage;
   final VoidCallback previousPage;
 
+  final String? sources;
+
+  // Father's Controllers
+  final TextEditingController? fatherName;
+  final TextEditingController? fatherAge;
+  final TextEditingController? fatherOccupation;
+  final TextEditingController? fatherOfficeAddress;
+  final TextEditingController? fatherContact;
+
+  // Mothers's Controllers
+  final TextEditingController? motherName;
+  final TextEditingController? motherAge;
+  final TextEditingController? motherOccupation;
+  final TextEditingController? motherOfficeAddress;
+  final TextEditingController? motherContact;
+
+  // Guardian's Controllers
+  final TextEditingController? guardianName;
+  final TextEditingController? guardianAge;
+  final TextEditingController? guardianOccupation;
+  final TextEditingController? guardianOfficeAddress;
+  final TextEditingController? guardianContact;
+
+  // Other Controllers
+  final TextEditingController? annualIncome;
+  final TextEditingController? otherSources;
+
+  //Radio box Controllers
+  final Function(String?) sourceOnChanged;
+
   const FamilyBackground({
     super.key,
     required this.nextPage,
     required this.previousPage,
+
+    this.sources,
+
+    // Father's Details
+    this.fatherName,
+    this.fatherAge,
+    this.fatherOccupation,
+    this.fatherOfficeAddress,
+    this.fatherContact,
+
+    // Mother's Details
+    this.motherName,
+    this.motherAge,
+    this.motherOccupation,
+    this.motherOfficeAddress,
+    this.motherContact,
+
+    // Guardian's Details
+    this.guardianName,
+    this.guardianAge,
+    this.guardianOccupation,
+    this.guardianOfficeAddress,
+    this.guardianContact,
+    this.otherSources,
+
+    // Other Details
+    this.annualIncome,
+
+    // Radio Box Properties
+    required this.sourceOnChanged,
   });
 
   @override
@@ -18,7 +78,6 @@ class FamilyBackground extends StatefulWidget {
 }
 
 class _FamilyBackgroundState extends State<FamilyBackground> {
-  String? sources;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +119,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.fatherName,
                       readOnly: false,
                       icon: Icons.person_2,
                       label: "NAME",
@@ -71,6 +131,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.fatherAge,
                       readOnly: false,
                       icon: Icons.person_2,
                       label: "AGE",
@@ -82,6 +143,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.fatherOccupation,
                       readOnly: false,
                       icon: Icons.work,
                       label: "OCCUPATION",
@@ -94,6 +156,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.fatherOfficeAddress,
                       readOnly: false,
                       icon: Icons.location_city,
                       label: "OFFICE/ADDRESS",
@@ -105,6 +168,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 40),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.fatherContact,
                       readOnly: false,
                       icon: Icons.phone,
                       label: "CONTACT NO.",
@@ -137,6 +201,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.motherName,
                       readOnly: false,
                       icon: Icons.person_2,
                       label: "NAME",
@@ -148,6 +213,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.motherAge,
                       readOnly: false,
                       icon: Icons.person_2,
                       label: "AGE",
@@ -159,6 +225,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.motherOccupation,
                       readOnly: false,
                       icon: Icons.work,
                       label: "OCCUPATION",
@@ -171,6 +238,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.motherOfficeAddress,
                       readOnly: false,
                       icon: Icons.location_city,
                       label: "OFFICE/ADDRESS",
@@ -182,6 +250,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 40),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.motherContact,
                       readOnly: false,
                       icon: Icons.phone,
                       label: "CONTACT NO.",
@@ -214,6 +283,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.guardianName,
                       readOnly: false,
                       icon: Icons.person_2,
                       label: "NAME",
@@ -225,6 +295,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.guardianAge,
                       readOnly: false,
                       icon: Icons.person_2,
                       label: "AGE",
@@ -236,6 +307,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.guardianOccupation,
                       readOnly: false,
                       icon: Icons.work,
                       label: "OCCUPATION",
@@ -248,6 +320,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.guardianOfficeAddress,
                       readOnly: false,
                       icon: Icons.location_city,
                       label: "OFFICE/ADDRESS",
@@ -259,6 +332,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 40),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.guardianContact,
                       readOnly: false,
                       icon: Icons.phone,
                       label: "CONTACT NO.",
@@ -292,6 +366,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      textController: widget.annualIncome,
                       readOnly: false,
                       icon: Icons.money,
                       label: "ANNUAL FAMILY INCOME",
@@ -308,12 +383,8 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                 icon: Icons.source,
                 radioTitle: 'SOURCES OF INCOME',
                 options: ['SALARIES/WAGES', 'BUSINESS', 'OTHERS'],
-                selectedValue: sources,
-                onChanged: (value) {
-                  setState(() {
-                    sources = value;
-                  });
-                },
+                selectedValue: widget.sources,
+                onChanged: widget.sourceOnChanged,
               ),
             ),
 
@@ -321,11 +392,12 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
               padding: EdgeInsets.only(bottom: 40),
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
+                textController: widget.otherSources,
                 readOnly: false,
                 icon: Icons.list,
                 label: "OTHER SOURCES",
                 hint: 'If others, please specify',
-                enabled: sources == 'OTHERS',
+                enabled: widget.sources == 'OTHERS',
               ),
             ),
 
