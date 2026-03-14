@@ -55,7 +55,7 @@ class _HealthState extends State<Health> {
               child: RadioGroups(
                 icon: Icons.health_and_safety,
                 radioTitle: 'HEALTH CONDITION',
-                options: ['GOOD', 'NOT GOOD'],
+                options: ['Good', 'Not Good'],
                 selectedValue: widget.healthCondition,
                 onChanged: widget.healthConditionOnChanged
               ),
@@ -67,7 +67,7 @@ class _HealthState extends State<Health> {
               width: MediaQuery.of(context).size.width * 0.8,
               child: CustomField(
                 textController: widget.notGoodCondition,
-                enabled: widget.healthCondition == 'NOT GOOD',
+                enabled: widget.healthCondition == 'Not Good',
                 readOnly: false,
                 icon: Icons.health_and_safety_outlined,
                 label: "WHY",

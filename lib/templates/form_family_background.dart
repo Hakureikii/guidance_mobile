@@ -474,7 +474,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
               child: RadioGroups(
                 icon: Icons.source,
                 radioTitle: 'SOURCES OF INCOME',
-                options: ['SALARIES/WAGES', 'BUSINESS', 'OTHERS'],
+                options: ['Salaries/Wages', 'Business', 'Others'],
                 selectedValue: widget.sources,
                 onChanged: widget.sourceOnChanged,
               ),
@@ -489,7 +489,7 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                 icon: Icons.list,
                 label: "OTHER SOURCES",
                 hint: 'If others, please specify',
-                enabled: widget.sources == 'OTHERS',
+                enabled: widget.sources == 'Others',
               ),
             ),
 

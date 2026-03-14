@@ -224,7 +224,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
             RadioGroups(
               icon: Icons.group,
               radioTitle: 'CIVIL STATUS',
-              options: ['SINGLE', 'MARRIED', 'OTHERS'],
+              options: ['Single', 'Married', 'Others'],
               selectedValue: widget.civilStatus,
               onChanged: widget.onStatusChanged,
             ),
@@ -237,7 +237,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                 icon: Icons.list,
                 label: '',
                 hint: 'If others, please specify',
-                enabled: widget.civilStatus == 'OTHERS',
+                enabled: widget.civilStatus == 'Others',
               ),
             ),
 
@@ -273,7 +273,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                       textController: widget.spouseName,
                       readOnly: false,
                       enabled:
-                          widget.civilStatus == 'MARRIED' || widget.civilStatus == 'OTHERS',
+                          widget.civilStatus == 'Married' || widget.civilStatus == 'Others',
                       label: 'SPOUSE NAME',
                       hint: 'eg. John Doe',
                       icon: Icons.group,
@@ -288,7 +288,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                       textController: widget.spouseContactNumber,
                       readOnly: false,
                       enabled:
-                          widget.civilStatus == 'MARRIED' || widget.civilStatus == 'OTHERS',
+                          widget.civilStatus == 'Married' || widget.civilStatus == 'Others',
                       label: 'CONTACT NO.',
                       hint: '09XXXXXXXXX',
                       icon: Icons.group,
@@ -354,7 +354,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
             RadioGroups(
               icon: Icons.transgender,
               radioTitle: 'GENDER',
-              options: ['MALE', 'FEMALE', 'OTHERS'],
+              options: ['Male', 'Female', 'Others'],
               selectedValue: widget.gender,
               onChanged: widget.genderOnChanged,
             ),
@@ -369,7 +369,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                 icon: Icons.list,
                 label: '',
                 hint: 'If others, please specify',
-                enabled: widget.gender == 'OTHERS',
+                enabled: widget.gender == 'Others',
               ),
             ),
 
@@ -452,7 +452,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
             RadioGroups(
               icon: Icons.home,
               radioTitle: 'LIVING ARRANGEMENT',
-              options: ['LIVING WITH PARENTS', 'LIVING WITH RELATIVES', 'OTHERS'],
+              options: ['Living With Parents', 'Living With Relatives', 'Others'],
               selectedValue: widget.livingArrangement,
               onChanged: widget.livingArrangementOnChanged,
             ),
@@ -466,7 +466,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                 icon: Icons.list,
                 label: '',
                 hint: 'If others, please specify',
-                enabled: widget.livingArrangement == 'OTHERS',
+                enabled: widget.livingArrangement == 'Others',
               ),
             ),
 
@@ -474,7 +474,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
             RadioGroups(
               icon: Icons.group,
               radioTitle: 'IP MEMBER',
-              options: ['YES', 'NO'],
+              options: ['Yes', 'No'],
               selectedValue: widget.ipMember,
               onChanged: widget.ipMemberOnChanged,
             ),
@@ -489,7 +489,7 @@ class _PersonalInformationFormState extends State<PersonalInformationForm> {
                 icon: Icons.list,
                 label: '',
                 hint: 'If yes, please specify',
-                enabled: widget.ipMember == 'YES',
+                enabled: widget.ipMember == 'Yes',
               ),
             ),
           ],

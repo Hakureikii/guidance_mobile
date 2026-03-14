@@ -273,11 +273,11 @@ class _InventoryFormsState extends State<InventoryForms> {
       );
     }
     // Radio Box Value Handler
-    gender != 'OTHERS' ? null : gender = personalInformationController["otherGender"]!.text;
-    civilstatus != 'OTHERS' ? null : civilstatus = personalInformationController["othersStatus"]!.text;
-    ipMember != 'YES' ? null : ipMember = personalInformationController["ipMemberField"]!.text;
-    livingArrangement != 'OTHERS' ? null : livingArrangement = personalInformationController["otherLivingArrangement"]!.text;
-    sources != 'OTHERS' ? null : sources = familyBackgroundController["otherSources"]!.text;
+    gender != 'Others' ? null : gender = personalInformationController["otherGender"]!.text;
+    civilstatus != 'Others' ? null : civilstatus = personalInformationController["othersStatus"]!.text;
+    ipMember != 'No' ? null : ipMember = personalInformationController["ipMemberField"]!.text;
+    livingArrangement != 'Others' ? null : livingArrangement = personalInformationController["otherLivingArrangement"]!.text;
+    sources != 'Others' ? null : sources = familyBackgroundController["otherSources"]!.text;
   }
 
   void previousPage() {

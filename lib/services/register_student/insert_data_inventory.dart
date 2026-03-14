@@ -54,6 +54,11 @@ class InsertDataInventory {
     String? spouseContactNumber,
   }) async {
     try {
+      if (civilStatus == 'Single') {
+        spouseName = null;
+        spouseContactNumber = null;
+      }
+
       await DatabaseConfiguration.client
           .from('student_civil_status_tb')
           .insert({
@@ -78,6 +83,11 @@ class InsertDataInventory {
     String? livingArrangement,
   }) async {
     try {
+
+      if (ethnicGroup == 'No') {
+        ethnicGroup == null;
+      }
+      
       await DatabaseConfiguration.client
       .from('student_contact_tb')
       .insert({
@@ -258,6 +268,11 @@ class InsertDataInventory {
 
   }) async {
     try {
+
+      if (healthCondition == 'Good') {
+        notGoodCondition = null;
+      }
+
         await DatabaseConfiguration.client
         .from('student_health_tb')
         .insert({
