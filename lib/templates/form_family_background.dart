@@ -17,21 +17,27 @@ class FamilyBackground extends StatefulWidget {
   final List<Map<String, TextEditingController>> siblings;
 
   // Father's Controllers
-  final TextEditingController? fatherName;
+  final TextEditingController? fatherFirstName;
+  final TextEditingController? fatherMiddleName;
+  final TextEditingController? fatherLastName;
   final TextEditingController? fatherAge;
   final TextEditingController? fatherOccupation;
   final TextEditingController? fatherOfficeAddress;
   final TextEditingController? fatherContact;
 
   // Mothers's Controllers
-  final TextEditingController? motherName;
+  final TextEditingController? motherFirstName;
+  final TextEditingController? motherMiddleName;
+  final TextEditingController? motherLastName;
   final TextEditingController? motherAge;
   final TextEditingController? motherOccupation;
   final TextEditingController? motherOfficeAddress;
   final TextEditingController? motherContact;
 
   // Guardian's Controllers
-  final TextEditingController? guardianName;
+  final TextEditingController? guardianFirstName;
+  final TextEditingController? guardianMiddleName;
+  final TextEditingController? guardianLastName;
   final TextEditingController? guardianAge;
   final TextEditingController? guardianOccupation;
   final TextEditingController? guardianOfficeAddress;
@@ -56,21 +62,27 @@ class FamilyBackground extends StatefulWidget {
     this.sources,
 
     // Father's Details
-    this.fatherName,
+    this.fatherFirstName,
+    this.fatherMiddleName,
+    this.fatherLastName,
     this.fatherAge,
     this.fatherOccupation,
     this.fatherOfficeAddress,
     this.fatherContact,
 
     // Mother's Details
-    this.motherName,
+    this.motherFirstName,
+    this.motherMiddleName,
+    this.motherLastName,
     this.motherAge,
     this.motherOccupation,
     this.motherOfficeAddress,
     this.motherContact,
 
     // Guardian's Details
-    this.guardianName,
+    this.guardianFirstName,
+    this.guardianMiddleName,
+    this.guardianLastName,
     this.guardianAge,
     this.guardianOccupation,
     this.guardianOfficeAddress,
@@ -133,10 +145,32 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
-                      textController: widget.fatherName,
+                      textController: widget.fatherFirstName,
                       readOnly: false,
                       icon: Icons.person_2,
-                      label: "NAME",
+                      label: "FIRST NAME",
+                    ),
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      textController: widget.fatherMiddleName,
+                      readOnly: false,
+                      icon: Icons.person_2,
+                      label: "MIDDLE NAME",
+                    ),
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      textController: widget.fatherLastName,
+                      readOnly: false,
+                      icon: Icons.person_2,
+                      label: "LAST NAME",
                     ),
                   ),
 
@@ -215,10 +249,32 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
-                      textController: widget.motherName,
+                      textController: widget.motherFirstName,
                       readOnly: false,
                       icon: Icons.person_2,
-                      label: "NAME",
+                      label: "FIRST NAME",
+                    ),
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      textController: widget.motherMiddleName,
+                      readOnly: false,
+                      icon: Icons.person_2,
+                      label: "MIDDLE NAME",
+                    ),
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      textController: widget.motherLastName,
+                      readOnly: false,
+                      icon: Icons.person_2,
+                      label: "LAST NAME",
                     ),
                   ),
 
@@ -297,10 +353,32 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
-                      textController: widget.guardianName,
+                      textController: widget.guardianFirstName,
                       readOnly: false,
                       icon: Icons.person_2,
-                      label: "NAME",
+                      label: "FIRST NAME",
+                    ),
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      textController: widget.guardianMiddleName,
+                      readOnly: false,
+                      icon: Icons.person_2,
+                      label: "MIDDLE NAME",
+                    ),
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: CustomField(
+                      textController: widget.guardianLastName,
+                      readOnly: false,
+                      icon: Icons.person_2,
+                      label: "LAST NAME",
                     ),
                   ),
 
@@ -440,13 +518,58 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
               children: List.generate(widget.siblings.length, (index) {
                 return Column(
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Icon(Icons.family_restroom),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, bottom: 20),
+                          child: Text(
+                            'SIBLING ${index + 1}',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 14.5,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // Siblings Name
                     Container(
                       padding: EdgeInsets.only(bottom: 20),
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: CustomField(
                         icon: Icons.person_2,
-                        textController: widget.siblings[index]["Name"],
-                        label: "NAME", 
+                        textController: widget.siblings[index]["FirstName"],
+                        label: "FIRST NAME", 
+                        readOnly: false,
+                      ),
+                    ),
+
+                    Container(
+                      padding: EdgeInsets.only(bottom: 20),
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: CustomField(
+                        icon: Icons.person_2,
+                        textController: widget.siblings[index]["MiddleName"],
+                        label: "MIDDLE NAME", 
+                        readOnly: false,
+                      ),
+                    ),
+                    
+                    Container(
+                      padding: EdgeInsets.only(bottom: 20),
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: CustomField(
+                        icon: Icons.person_2,
+                        textController: widget.siblings[index]["LastName"],
+                        label: "LAST NAME", 
                         readOnly: false,
                       ),
                     ),
@@ -475,19 +598,43 @@ class _FamilyBackgroundState extends State<FamilyBackground> {
                       
                       ),
 
-                      ElevatedButton(
-                        onPressed: () => {
-                          widget.removeSiblings(index)
-                        }, 
-                        child: Text("Remove Siblings")
-                        )
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ElevatedButton.icon(
+                          icon: Icon(Icons.remove),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(20),
+                            backgroundColor: Colors.blueGrey,
+                            foregroundColor: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(15))
+                            ),
+                          ),
+                          onPressed: () => {
+                            widget.removeSiblings(index)
+                          }, 
+                          label: Text("Sibling"),
+                          ),
+                      )
                   ],
                 );
               })
             ),
-            ElevatedButton(
-              onPressed: widget.addSiblings,
-              child: Text("Add Sibling"),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(20),
+                  backgroundColor: Colors.blueGrey,
+                  foregroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))
+                  )
+                ),
+                icon: Icon(Icons.add_circle),
+                label: Text("Sibling"),
+                onPressed: widget.addSiblings,
+              ),
             )
           ],
         ),

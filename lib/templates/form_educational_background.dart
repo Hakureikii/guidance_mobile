@@ -6,6 +6,9 @@ class EducationalBackground extends StatefulWidget {
   final VoidCallback nextPage;
   final VoidCallback previousPage;
 
+  final VoidCallback elementaryYearGraduatedOnTap;
+  final VoidCallback highSchoolYearGraduatedOnTap;
+
   // Text Controllers
   final TextEditingController? elementarySchool;
   final TextEditingController? elementaryYearGraduated;
@@ -17,8 +20,14 @@ class EducationalBackground extends StatefulWidget {
 
   const EducationalBackground({
     super.key,
+
+    // Functions
+
     required this.nextPage,
     required this.previousPage,
+    required this.elementaryYearGraduatedOnTap,
+    required this.highSchoolYearGraduatedOnTap,
+
 
     // Text Controllers
     this.elementarySchool,
@@ -88,8 +97,9 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      onTap: widget.elementaryYearGraduatedOnTap,
                       textController: widget.elementaryYearGraduated,
-                      readOnly: false,
+                      readOnly: true,
                       icon: Icons.calendar_month,
                       label: "YEAR GRADUATED",
                     ),
@@ -112,8 +122,9 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
                     padding: EdgeInsets.only(bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: CustomField(
+                      onTap: widget.highSchoolYearGraduatedOnTap,
                       textController: widget.highschoolYearGraduated,
-                      readOnly: false,
+                      readOnly: true,
                       icon: Icons.calendar_month,
                       label: "YEAR GRADUATED",
                     ),
