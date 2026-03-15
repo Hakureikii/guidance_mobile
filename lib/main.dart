@@ -5,6 +5,7 @@ import 'templates/form_family_background.dart';
 import 'templates/form_educational_background.dart';
 import 'templates/form_health.dart';
 import 'package:intl/intl.dart';
+import 'custom_widgets/input_validators.dart';
 // import 'services/register_student/insert_data_inventory.dart';
 
 void main() {
@@ -115,6 +116,11 @@ class _InventoryFormsState extends State<InventoryForms> {
 
   String? healthCondition;
 
+  final _personalInformationkey = GlobalKey<FormState>();
+  final _familyBackgroundKey = GlobalKey<FormState>();
+  final _educationalBackgroundKey = GlobalKey<FormState>();
+  final _healthKey = GlobalKey<FormState>();
+
   Future<void> submitData() async {
     // Insert Student Details
     int? studentID = await InsertDataInventory.insertStudent(
@@ -138,7 +144,8 @@ class _InventoryFormsState extends State<InventoryForms> {
       studentId: studentID,
       civilStatus: civilstatus,
       spouseName: personalInformationController["spouseName"]!.text,
-      spouseContactNumber: personalInformationController["spouseContactNumber"]!.text,
+      spouseContactNumber:
+          personalInformationController["spouseContactNumber"]!.text,
     );
 
     // Insert student contact
@@ -146,7 +153,8 @@ class _InventoryFormsState extends State<InventoryForms> {
       studentId: studentID,
       presentAddress: personalInformationController["presentAddress"]!.text,
       phoneNumber: personalInformationController["phoneNumber"]!.text,
-      provincialAddress: personalInformationController["provincialAddress"]!.text,
+      provincialAddress:
+          personalInformationController["provincialAddress"]!.text,
       homePhoneNumber: personalInformationController["homePhoneNumber"]!.text,
       ethnicGroup: ipMember,
       livingArrangement: livingArrangement,
@@ -199,13 +207,18 @@ class _InventoryFormsState extends State<InventoryForms> {
 
     await InsertDataInventory.insertEducationalBackground(
       studentId: studentID,
-      elementarySchool: educationalBackgroundController["elementarySchool"]!.text,
-      elementaryYearGraduated: educationalBackgroundController["elementaryYearGraduated"]!.text,
+      elementarySchool:
+          educationalBackgroundController["elementarySchool"]!.text,
+      elementaryYearGraduated:
+          educationalBackgroundController["elementaryYearGraduated"]!.text,
       highSchool: educationalBackgroundController["highSchool"]!.text,
-      highschoolYearGraduated: educationalBackgroundController["highschoolYearGraduated"]!.text,
+      highschoolYearGraduated:
+          educationalBackgroundController["highschoolYearGraduated"]!.text,
       collegeSchool: educationalBackgroundController["collegeSchool"]!.text,
-      schoolOrganization: educationalBackgroundController["schoolOrganization"]!.text,
-      extraCurricularActivities: educationalBackgroundController["extraCurricularActivities"]!.text,
+      schoolOrganization:
+          educationalBackgroundController["schoolOrganization"]!.text,
+      extraCurricularActivities:
+          educationalBackgroundController["extraCurricularActivities"]!.text,
     );
 
     await InsertDataInventory.insertHealth(
@@ -240,9 +253,8 @@ class _InventoryFormsState extends State<InventoryForms> {
     );
 
     if (selectedDate != null) {
-      educationalBackgroundController["elementaryYearGraduated"]!.text = DateFormat(
-        'MM/dd/yyyy',
-      ).format(selectedDate);
+      educationalBackgroundController["elementaryYearGraduated"]!.text =
+          DateFormat('MM/dd/yyyy').format(selectedDate);
     }
   }
 
@@ -255,34 +267,104 @@ class _InventoryFormsState extends State<InventoryForms> {
     );
 
     if (selectedDate != null) {
-      educationalBackgroundController["highschoolYearGraduated"]!.text = DateFormat(
-        'MM/dd/yyyy',
-      ).format(selectedDate);
+      educationalBackgroundController["highschoolYearGraduated"]!.text =
+          DateFormat('MM/dd/yyyy').format(selectedDate);
     }
   }
 
   void nextPage() {
     int currentPage = _pageController.page!.round();
 
+    if (currentPage == 0) {
+      if (!_personalInformationkey.currentState!.validate()) {
+        return;
+      }
+
+      if (civilstatus == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Please select civil status")));
+        return;
+      }
+
+      if (gender == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Please select gender")));
+        return;
+      }
+
+      if (livingArrangement == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Please select living arrangement")),
+        );
+        return;
+      }
+
+      if (ipMember == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Please select ethnicity")));
+        return;
+      }
+    } else if (currentPage == 1) {
+      if (!_familyBackgroundKey.currentState!.validate()) {
+        return;
+      }
+
+      if (sources == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Please select sources")));
+        return;
+      }
+    } else if (currentPage == 2) {
+      if (!_educationalBackgroundKey.currentState!.validate()) {
+        return;
+      }
+    } else if (currentPage == 3) {
+      if (!_healthKey.currentState!.validate()) {
+        return;
+      }
+
+      if (healthCondition == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Select Health Condition")));
+        return;
+      }
+    }
+
     if (currentPage == 3) {
       submitData();
     } else {
       _pageController.nextPage(
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 800),
         curve: Curves.easeInOutCubicEmphasized,
       );
     }
     // Radio Box Value Handler
-    gender != 'Others' ? null : gender = personalInformationController["otherGender"]!.text;
-    civilstatus != 'Others' ? null : civilstatus = personalInformationController["othersStatus"]!.text;
-    ipMember != 'No' ? null : ipMember = personalInformationController["ipMemberField"]!.text;
-    livingArrangement != 'Others' ? null : livingArrangement = personalInformationController["otherLivingArrangement"]!.text;
-    sources != 'Others' ? null : sources = familyBackgroundController["otherSources"]!.text;
+    gender != 'Others'
+        ? null
+        : gender = personalInformationController["otherGender"]!.text;
+    civilstatus != 'Others'
+        ? null
+        : civilstatus = personalInformationController["othersStatus"]!.text;
+    ipMember != 'Yes'
+        ? ipMember = 'N/A'
+        : ipMember = personalInformationController["ipMemberField"]!.text;
+    livingArrangement != 'Others'
+        ? null
+        : livingArrangement =
+              personalInformationController["otherLivingArrangement"]!.text;
+    sources != 'Others'
+        ? null
+        : sources = familyBackgroundController["otherSources"]!.text;
   }
 
   void previousPage() {
     _pageController.previousPage(
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 800),
       curve: Curves.easeInOutCubicEmphasized,
     );
   }
@@ -317,6 +399,40 @@ class _InventoryFormsState extends State<InventoryForms> {
               children: [
                 PersonalInformationForm(
                   nextPage: nextPage,
+                  formKey: _personalInformationkey,
+
+                  studentNoValidator: Validators.studentNumber,
+
+                  yearLevelValidator: Validators.numberOnly,
+
+                  spouseNumberValidator: (value) => Validators.phone(civilstatus == 'Married' || civilstatus == 'Others', value),
+
+                  phoneNumberValidator: Validators.phoneNumber,
+
+                  ageValidator: Validators.numberOnly,
+
+                  emailValidator: Validators.email,
+
+                  marriedOthersValidator: (value) => Validators.requiredIf(
+                    civilstatus == 'Married' || civilstatus == 'Others',
+                    value,
+                  ),
+
+                  civilValidator: (value) =>
+                      Validators.requiredIf(civilstatus == 'Others', value),
+
+                  inputValidator: Validators.required,
+
+                  genderValidator: (value) =>
+                      Validators.requiredIf(gender == 'Others', value),
+
+                  livingArrangementValidator: (value) => Validators.requiredIf(
+                    livingArrangement == 'Others',
+                    value,
+                  ),
+
+                  ipMemberValidator: (value) =>
+                      Validators.requiredIf(ipMember == 'Yes', value),
 
                   civilStatus: civilstatus,
                   onStatusChanged: (value) {
@@ -395,12 +511,25 @@ class _InventoryFormsState extends State<InventoryForms> {
                   nextPage: nextPage,
                   previousPage: previousPage,
 
+                  formKey: _familyBackgroundKey,
+
+                  inputValidator: Validators.required,
+
+                  phoneNumberValidator: Validators.phoneNumber,
+
+                  ageValidator: Validators.numberOnly,
+
+                  incomeValidator: (value) =>
+                      Validators.requiredIf(sources == 'Others', value),
+
                   addSiblings: addSiblings,
                   removeSiblings: removeSiblings,
                   siblings: siblings,
 
-                  fatherFirstName: familyBackgroundController["fatherFirstName"],
-                  fatherMiddleName: familyBackgroundController["fatherMiddleName"],
+                  fatherFirstName:
+                      familyBackgroundController["fatherFirstName"],
+                  fatherMiddleName:
+                      familyBackgroundController["fatherMiddleName"],
                   fatherLastName: familyBackgroundController["fatherLastName"],
                   fatherAge: familyBackgroundController["fatherAge"],
                   fatherOccupation:
@@ -409,8 +538,10 @@ class _InventoryFormsState extends State<InventoryForms> {
                       familyBackgroundController["fatherOfficeAddress"],
                   fatherContact: familyBackgroundController["fatherContact"],
 
-                  motherFirstName: familyBackgroundController["motherFirstName"],
-                  motherMiddleName: familyBackgroundController["motherMiddleName"],
+                  motherFirstName:
+                      familyBackgroundController["motherFirstName"],
+                  motherMiddleName:
+                      familyBackgroundController["motherMiddleName"],
                   motherLastName: familyBackgroundController["motherLastName"],
                   motherAge: familyBackgroundController["motherAge"],
                   motherOccupation:
@@ -419,9 +550,12 @@ class _InventoryFormsState extends State<InventoryForms> {
                       familyBackgroundController["motherOfficeAddress"],
                   motherContact: familyBackgroundController["motherContact"],
 
-                  guardianFirstName: familyBackgroundController["guardianFirstName"],
-                  guardianMiddleName: familyBackgroundController["guardianMiddleName"],
-                  guardianLastName: familyBackgroundController["guardianLastName"],
+                  guardianFirstName:
+                      familyBackgroundController["guardianFirstName"],
+                  guardianMiddleName:
+                      familyBackgroundController["guardianMiddleName"],
+                  guardianLastName:
+                      familyBackgroundController["guardianLastName"],
                   guardianAge: familyBackgroundController["guardianAge"],
                   guardianOccupation:
                       familyBackgroundController["guardianOccupation"],
@@ -444,6 +578,10 @@ class _InventoryFormsState extends State<InventoryForms> {
                 EducationalBackground(
                   nextPage: nextPage,
                   previousPage: previousPage,
+
+                  formKey: _educationalBackgroundKey,
+
+                  inputValidator: Validators.required,
 
                   elementaryYearGraduatedOnTap: () {
                     _elementaryYearGraduated(context);
@@ -472,6 +610,12 @@ class _InventoryFormsState extends State<InventoryForms> {
                 Health(
                   nextPage: nextPage,
                   previousPage: previousPage,
+
+                  formKey: _healthKey,
+
+                  inputValidator: Validators.required,
+
+                  healthConditionValidator: (value) => Validators.requiredIf(healthCondition == 'Not Good', value),
 
                   healthCondition: healthCondition,
                   healthConditionOnChanged: (value) {

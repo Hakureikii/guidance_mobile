@@ -9,6 +9,11 @@ class EducationalBackground extends StatefulWidget {
   final VoidCallback elementaryYearGraduatedOnTap;
   final VoidCallback highSchoolYearGraduatedOnTap;
 
+  final FormFieldValidator<String> inputValidator;
+
+  //Form key
+  final GlobalKey<FormState> formKey;
+
   // Text Controllers
   final TextEditingController? elementarySchool;
   final TextEditingController? elementaryYearGraduated;
@@ -22,12 +27,16 @@ class EducationalBackground extends StatefulWidget {
     super.key,
 
     // Functions
-
     required this.nextPage,
     required this.previousPage,
     required this.elementaryYearGraduatedOnTap,
     required this.highSchoolYearGraduatedOnTap,
 
+    // Form key
+    required this.formKey,
+
+    // Input Validations
+    required this.inputValidator,
 
     // Text Controllers
     this.elementarySchool,
@@ -37,7 +46,6 @@ class EducationalBackground extends StatefulWidget {
     this.collegeSchool,
     this.schoolOrganization,
     this.extraCurricularActivities,
-
   });
 
   @override
@@ -59,113 +67,130 @@ class _EducationalBackgroundState extends State<EducationalBackground> {
               width: MediaQuery.of(context).size.width * 0.8,
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Icon(Icons.school),
-                      ),
+                  Form(
+                    key: widget.formKey,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Icon(Icons.school),
+                            ),
 
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, bottom: 20),
-                        child: Text(
-                          'SCHOOLS',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 14.5,
-                            fontWeight: FontWeight.bold,
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10,
+                                bottom: 20,
+                              ),
+                              child: Text(
+                                'SCHOOLS',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 14.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Elementary School
+                        Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: CustomField(
+                            validator: widget.inputValidator,
+                            textController: widget.elementarySchool,
+                            readOnly: false,
+                            icon: Icons.school_outlined,
+                            label: "ELEMENTARY SCHOOL",
                           ),
                         ),
-                      ),
-                    ],
-                  ),
 
-                  // Elementary School
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CustomField(
-                      textController: widget.elementarySchool,
-                      readOnly: false,
-                      icon: Icons.school_outlined,
-                      label: "ELEMENTARY SCHOOL",
-                    ),
-                  ),
+                        // Year Graduated on Elementary
+                        Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: CustomField(
+                            validator: widget.inputValidator,
+                            onTap: widget.elementaryYearGraduatedOnTap,
+                            textController: widget.elementaryYearGraduated,
+                            readOnly: true,
+                            icon: Icons.calendar_month,
+                            label: "YEAR GRADUATED",
+                          ),
+                        ),
 
-                  // Year Graduated on Elementary
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CustomField(
-                      onTap: widget.elementaryYearGraduatedOnTap,
-                      textController: widget.elementaryYearGraduated,
-                      readOnly: true,
-                      icon: Icons.calendar_month,
-                      label: "YEAR GRADUATED",
-                    ),
-                  ),
+                        // High School
+                        Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: CustomField(
+                            validator: widget.inputValidator,
+                            textController: widget.highSchool,
+                            readOnly: false,
+                            icon: Icons.school_outlined,
+                            label: "HIGH SCHOOL",
+                          ),
+                        ),
 
-                  // High School
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CustomField(
-                      textController: widget.highSchool,
-                      readOnly: false,
-                      icon: Icons.school_outlined,
-                      label: "HIGH SCHOOL",
-                    ),
-                  ),
+                        // Year Graduated on High School
+                        Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: CustomField(
+                            validator: widget.inputValidator,
+                            onTap: widget.highSchoolYearGraduatedOnTap,
+                            textController: widget.highschoolYearGraduated,
+                            readOnly: true,
+                            icon: Icons.calendar_month,
+                            label: "YEAR GRADUATED",
+                          ),
+                        ),
 
-                  // Year Graduated on High School
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CustomField(
-                      onTap: widget.highSchoolYearGraduatedOnTap,
-                      textController: widget.highschoolYearGraduated,
-                      readOnly: true,
-                      icon: Icons.calendar_month,
-                      label: "YEAR GRADUATED",
-                    ),
-                  ),
+                        // College
+                        Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: CustomField(
+                            validator: widget.inputValidator,
+                            textController: widget.collegeSchool,
+                            readOnly: false,
+                            icon: Icons.school_outlined,
+                            label: "COLLEGE",
+                            hint: 'If not a transferee, please type N/A',
+                          ),
+                        ),
 
-                  // College
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CustomField(
-                      textController: widget.collegeSchool,
-                      readOnly: false,
-                      icon: Icons.school_outlined,
-                      label: "COLLEGE",
-                      hint: 'If not a transferee, please type N/A',
-                    ),
-                  ),
+                        // Membership in School Organization
+                        Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: CustomField(
+                            validator: widget.inputValidator,
+                            textController: widget.schoolOrganization,
+                            readOnly: false,
+                            icon: Icons.group,
+                            label: "SCHOOL ORGANIZATION",
+                            hint: 'If none, please type N/A',
+                          ),
+                        ),
 
-                  // Membership in School Organization
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CustomField(
-                      textController: widget.schoolOrganization,
-                      readOnly: false,
-                      icon: Icons.group,
-                      label: "SCHOOL ORGANIZATION",
-                      hint: 'If none, please type N/A',
-                    ),
-                  ),
-
-                  // Extra-curricular activities in high school
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CustomField(
-                      textController: widget.extraCurricularActivities,
-                      readOnly: false,
-                      icon: Icons.local_activity,
-                      label: "EXTRA-CURRICULAR (HIGH SCHOOL)",
-                      hint: 'If none, please type N/A',
+                        // Extra-curricular activities in high school
+                        Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: CustomField(
+                            validator: widget.inputValidator,
+                            textController: widget.extraCurricularActivities,
+                            readOnly: false,
+                            icon: Icons.local_activity,
+                            label: "EXTRA-CURRICULAR (HIGH SCHOOL)",
+                            hint: 'If none, please type N/A',
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

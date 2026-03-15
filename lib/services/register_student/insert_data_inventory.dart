@@ -55,8 +55,8 @@ class InsertDataInventory {
   }) async {
     try {
       if (civilStatus == 'Single') {
-        spouseName = null;
-        spouseContactNumber = null;
+        spouseName = 'N/A';
+        spouseContactNumber = 'N/A';
       }
 
       await DatabaseConfiguration.client
@@ -85,7 +85,7 @@ class InsertDataInventory {
     try {
 
       if (ethnicGroup == 'No') {
-        ethnicGroup == null;
+        ethnicGroup == 'N/A';
       }
       
       await DatabaseConfiguration.client
@@ -270,7 +270,7 @@ class InsertDataInventory {
     try {
 
       if (healthCondition == 'Good') {
-        notGoodCondition = null;
+        notGoodCondition = 'N/A';
       }
 
         await DatabaseConfiguration.client

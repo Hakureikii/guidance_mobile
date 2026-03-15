@@ -8,7 +8,7 @@ class CustomField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController? textController;
   final VoidCallback? onTap;
-  final FormFieldValidator? validator;
+  final FormFieldValidator<String>? validator;
 
   const CustomField({
     super.key,
