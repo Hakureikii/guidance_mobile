@@ -6,11 +6,19 @@ import 'templates/form_educational_background.dart';
 import 'templates/form_health.dart';
 import 'package:intl/intl.dart';
 import 'custom_widgets/input_validators.dart';
+import 'templates/login.dart';
 // import 'services/register_student/insert_data_inventory.dart';
 
 void main() {
   runApp(
-    MaterialApp(debugShowCheckedModeBanner: false, home: InventoryForms()),
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/register': (context) => InventoryForms(),
+      }, 
+      home: InventoryForms()
+      ),
   );
 }
 
@@ -221,12 +229,73 @@ class _InventoryFormsState extends State<InventoryForms> {
           educationalBackgroundController["extraCurricularActivities"]!.text,
     );
 
-    await InsertDataInventory.insertHealth(
+    String? response = await InsertDataInventory.insertHealth(
       studentId: studentID,
       healthCondition: healthCondition,
       disabilities: health["disabilities"]!.text,
       notGoodCondition: health["notGoodCondition"]!.text,
     );
+
+    if (response == 'Success') {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Montserrat',
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+
+            contentTextStyle: TextStyle(
+              fontFamily: 'Poppins',
+              color: Colors.black,
+            ),
+            title: Text('SUCCESS'),
+            content: Text('Redirecting to Login Screen'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, '/login');
+                },
+                child: Text('Close', style: TextStyle(fontFamily: 'Poppins')),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Montserrat',
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+
+            contentTextStyle: TextStyle(
+              fontFamily: 'Poppins',
+              color: Colors.black,
+            ),
+            title: Text('ERROR'),
+            content: Text('Something Went Wrong.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Close', style: TextStyle(fontFamily: 'Poppins')),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -336,7 +405,47 @@ class _InventoryFormsState extends State<InventoryForms> {
     }
 
     if (currentPage == 3) {
-      submitData();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Montserrat',
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+
+            contentTextStyle: TextStyle(
+              fontFamily: 'Poppins',
+              color: Colors.black,
+            ),
+            title: Text('CONFIRM SUBMISSION'),
+            content: Text(
+              'Please review all student information carefully before submission. Once Confirmed, changes cannot be made and the data will be used to generate a PDF file.\n \n'
+              'By clicking CONFIRM, you hereby acknowledge and agree that all information entered in this form is accurate and complete to the best of your knowledge.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Back', style: TextStyle(fontFamily: 'Poppins')),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  submitData();
+                },
+                child: Text(
+                  'Submit Data',
+                  style: TextStyle(fontFamily: 'Poppins'),
+                ),
+              ),
+            ],
+          );
+        },
+      );
     } else {
       _pageController.nextPage(
         duration: Duration(milliseconds: 800),
@@ -405,7 +514,10 @@ class _InventoryFormsState extends State<InventoryForms> {
 
                   yearLevelValidator: Validators.numberOnly,
 
-                  spouseNumberValidator: (value) => Validators.phone(civilstatus == 'Married' || civilstatus == 'Others', value),
+                  spouseNumberValidator: (value) => Validators.phone(
+                    civilstatus == 'Married' || civilstatus == 'Others',
+                    value,
+                  ),
 
                   phoneNumberValidator: Validators.phoneNumber,
 
@@ -615,7 +727,10 @@ class _InventoryFormsState extends State<InventoryForms> {
 
                   inputValidator: Validators.required,
 
-                  healthConditionValidator: (value) => Validators.requiredIf(healthCondition == 'Not Good', value),
+                  healthConditionValidator: (value) => Validators.requiredIf(
+                    healthCondition == 'Not Good',
+                    value,
+                  ),
 
                   healthCondition: healthCondition,
                   healthConditionOnChanged: (value) {
@@ -629,6 +744,7 @@ class _InventoryFormsState extends State<InventoryForms> {
               ],
             ),
           ),
+
         ],
       ),
     );

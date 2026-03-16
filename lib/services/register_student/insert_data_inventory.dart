@@ -260,7 +260,7 @@ class InsertDataInventory {
     }
   }
 
-  static Future<void> insertHealth({
+  static Future<String?> insertHealth({
     int? studentId,
     String? healthCondition,
     String? notGoodCondition,
@@ -281,10 +281,12 @@ class InsertDataInventory {
           'physical_disabilities': disabilities,
           'health_reason': notGoodCondition,
         });
+
+        return 'Success';
       
     }
     catch (e) {
-      debugPrint("Error $e");
+      return e.toString();
     }
   }
 }
