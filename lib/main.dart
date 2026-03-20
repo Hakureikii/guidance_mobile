@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guidance/services/register_student/insert_data_inventory.dart';
+import 'package:guidance/templates/test/student_dashboard.dart';
 import 'templates/form_personal_information.dart';
 import 'templates/form_family_background.dart';
 import 'templates/form_educational_background.dart';
@@ -7,15 +8,20 @@ import 'templates/form_health.dart';
 import 'package:intl/intl.dart';
 import 'custom_widgets/input_validators.dart';
 import 'templates/login.dart';
+import 'services/database_configuration.dart';
 // import 'services/register_student/insert_data_inventory.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseConfiguration.initialize();
+
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => InventoryForms(),
+        '/student_dashboard': (context) => StudentDashboard(),
       }, 
       home: InventoryForms()
       ),
@@ -744,6 +750,10 @@ class _InventoryFormsState extends State<InventoryForms> {
               ],
             ),
           ),
+
+          ElevatedButton(onPressed: () {
+            Navigator.pushReplacementNamed(context, '/login');
+          }, child: Text('Login'))
 
         ],
       ),

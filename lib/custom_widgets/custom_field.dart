@@ -20,7 +20,7 @@ class CustomField extends StatelessWidget {
     this.textController,
     this.onTap,
     this.validator,
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,12 @@ class CustomField extends StatelessWidget {
       readOnly: readOnly,
       controller: textController,
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF048c6c), width: 2),
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelStyle: TextStyle(
+          color: Color(0xFF048c6c),
           fontFamily: 'Montserrat',
           fontSize: 15,
           fontWeight: FontWeight.bold,

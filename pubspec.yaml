@@ -28,10 +28,18 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  supabase_flutter: ^2.5.4
   flutter:
     sdk: flutter
+  
+  supabase_flutter: ^2.5.4
+  uuid: ^4.0.0
+  
   intl: ^0.18.0
+
+  url_launcher: ^6.3.0
+
+  bcrypt: ^1.1.3
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -87,6 +95,14 @@ flutter:
     - family: Poppins
       fonts:
         - asset: fonts/Poppins-Regular.ttf
+
+    - family: Archivo_black
+      fonts:
+        - asset: fonts/ArchivoBlack-Regular.ttf
+
+    - family: ShareTech
+      fonts:
+        - asset: fonts/ShareTech-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
