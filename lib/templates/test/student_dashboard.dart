@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../custom_widgets/student_dashboard_page.dart';
+import '../../custom_widgets/page/student_dashboard_page.dart';
 
 void main () {
   runApp(MaterialApp(
