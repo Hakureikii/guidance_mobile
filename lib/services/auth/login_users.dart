@@ -10,7 +10,7 @@ class LoginUsers {
   ) async {
     try {
       String? login;
-      
+
       if (role == 'Student') {
         final data = await DatabaseConfiguration.client
             .from('student_tb')
@@ -21,7 +21,6 @@ class LoginUsers {
         int userId = data['student_id'];
         bool isValidated = BCrypt.checkpw(password, data['password']);
         if (isValidated == true) {
-
           // Shared preferences (Local Storage)
           final storage = await SharedPreferences.getInstance();
           storage.setInt('userId', userId);
@@ -39,7 +38,6 @@ class LoginUsers {
         int userId = facultydata['faculty_id'];
         bool isValidated = BCrypt.checkpw(password, facultydata['password']);
         if (isValidated == true) {
-            
           // Shared preferences (Local Storage)
           final storage = await SharedPreferences.getInstance();
           storage.setInt('userId', userId);
@@ -48,9 +46,39 @@ class LoginUsers {
           login = 'loginFaculty';
         }
       } else if (role == 'Parent') {
-        login = 'loginParent';
+        final parentdata = await DatabaseConfiguration.client
+            .from('parent_tb')
+            .select('*')
+            .eq('email_address', email)
+            .single();
+
+        int userId = parentdata['parent_id'];
+        bool isValidated = BCrypt.checkpw(password, parentdata['password']);
+        if (isValidated == true) {
+          // Shared preferences (Local Storage)
+          final storage = await SharedPreferences.getInstance();
+          storage.setInt('userId', userId);
+          storage.setString('role', role);
+          storage.setString('username', parentdata['first_name']);
+          login = 'loginParent';
+        }
       } else {
-        login = 'loginGuidance';
+        final guardiandata = await DatabaseConfiguration.client
+            .from('guardian_tb')
+            .select('*')
+            .eq('email_address', email)
+            .single();
+
+        int userId = guardiandata['guardian_id'];
+        bool isValidated = BCrypt.checkpw(password, guardiandata['password']);
+        if (isValidated == true) {
+          // Shared preferences (Local Storage)
+          final storage = await SharedPreferences.getInstance();
+          storage.setInt('userId', userId);
+          storage.setString('role', role);
+          storage.setString('username', guardiandata['first_name']);
+        }
+        login = 'loginGuardian';
       }
       return '$login';
     } catch (e) {

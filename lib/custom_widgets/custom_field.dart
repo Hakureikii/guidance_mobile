@@ -9,6 +9,7 @@ class CustomField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController? textController;
   final VoidCallback? onTap;
+  final Function(String)? fieldOnChanged;
   final FormFieldValidator<String>? validator;
 
   const CustomField({
@@ -22,11 +23,13 @@ class CustomField extends StatelessWidget {
     this.textController,
     this.onTap,
     this.validator,
+    this.fieldOnChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: fieldOnChanged,
       obscureText: isObscured,
       validator: validator,
       onTap: onTap,
@@ -73,8 +76,7 @@ class PasswordField extends StatelessWidget {
     required this.passwordToggle,
     required this.validator,
     required this.isObscured,
-
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +98,55 @@ class PasswordField extends StatelessWidget {
         icon: icon != null ? Icon(icon) : null,
         labelText: label,
         suffixIcon: IconButton(
-          onPressed: passwordToggle, 
+          onPressed: passwordToggle,
           icon: Icon(isObscured ? Icons.visibility_off : Icons.visibility),
-          ),
+        ),
+        hintText: hint,
+        hintStyle: TextStyle(fontFamily: 'Montserrat', fontSize: 15),
+        contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+      ),
+    );
+  }
+}
+
+class TextArea extends StatelessWidget {
+  final FormFieldValidator<String> validator;
+  final String? label;
+  final String? hint;
+  final IconData? icon;
+  final TextEditingController textController;
+
+  const TextArea({
+    super.key, 
+    this.hint,
+    this.label,
+    this.icon,
+    
+    required this.textController,
+    required this.validator
+    });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      textInputAction: TextInputAction.newline,
+      maxLines: null,
+      validator: validator,
+      controller: textController,
+      decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF048c6c), width: 2),
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        labelStyle: TextStyle(
+          color: Color(0xFF048c6c),
+          fontFamily: 'Montserrat',
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+        icon: icon != null ? Icon(icon) : null,
+        labelText: label,
         hintText: hint,
         hintStyle: TextStyle(fontFamily: 'Montserrat', fontSize: 15),
         contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 10),

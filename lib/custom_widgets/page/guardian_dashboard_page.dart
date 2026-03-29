@@ -1,7 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:guidance/services/auth/logout_users.dart';
+import 'package:guidance/services/auth/sessions.dart';
 
-class GuidanceDashboardScreen extends StatelessWidget {
-  const GuidanceDashboardScreen({super.key});
+class GuardianDashboardScreen extends StatefulWidget {
+  final VoidCallback? logout;
+  const GuardianDashboardScreen({super.key, this.logout});
+
+  @override
+  State<GuardianDashboardScreen> createState() =>
+      _GuardianDashboardScreenState();
+}
+
+class _GuardianDashboardScreenState extends State<GuardianDashboardScreen> {
+  String? greetings;
+
+  void logout() async {
+    final user = await LogoutUsers.logout();
+
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Montserrat',
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+          contentTextStyle: TextStyle(
+            fontFamily: 'Poppins',
+            color: Colors.black,
+          ),
+          title: Text('Logging Out'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 20),
+              Text('Please wait'),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (user == 'session_clear') {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+      Navigator.pushReplacementNamed(context, '/loginPage');
+    }
+  }
+
+  void session() async {
+    final username = await Sessions.username();
+
+    setState(() {
+      greetings = 'Welcome $username';
+    });
+  }
+
+  void screenAccess() async {
+    final session = await Sessions.validate();
+    if (session == 'no session') {
+      Navigator.pushReplacementNamed(context, '/loginPage');
+      return;
+    }
+
+    if (session == 'Guardian') {
+      return;
+    } else {
+      Navigator.pushReplacementNamed(context, '/loginPage');
+    }
+    ;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    session();
+    screenAccess();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +118,12 @@ class GuidanceDashboardScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.2,
                   child: IconButton(
                     style: ButtonStyle(
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(),
-                      ),
+                      shape: WidgetStateProperty.all(RoundedRectangleBorder()),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 20),
                     color: Colors.white,
                     icon: Icon(Icons.logout),
-                    onPressed: () {},
+                    onPressed: widget.logout,
                   ),
                 ),
               ],
@@ -60,7 +138,7 @@ class GuidanceDashboardScreen extends StatelessWidget {
                   padding: EdgeInsets.all(20),
                   width: double.infinity,
                   child: Text(
-                    'Welcome Counselor!',
+                    '$greetings',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold,
@@ -100,10 +178,10 @@ class GuidanceDashboardScreen extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   color: Colors.white,
-                  tooltip: 'Monitor Students',
-                  icon: Icon(Icons.remove_red_eye),
+                  tooltip: 'Add Appointment',
+                  icon: Icon(Icons.document_scanner),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/');
+                    Navigator.pushReplacementNamed(context, '/setAppointments');
                   },
                 ),
 
@@ -113,8 +191,8 @@ class GuidanceDashboardScreen extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   color: Colors.white,
-                  tooltip: 'Call Students',
-                  icon: Icon(Icons.call),
+                  tooltip: 'Monitor Children',
+                  icon: Icon(Icons.remove_red_eye),
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/');
                   },

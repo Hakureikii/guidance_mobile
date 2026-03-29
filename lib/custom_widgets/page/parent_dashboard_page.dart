@@ -106,7 +106,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
                   tooltip: 'Add Appointment',
                   icon: Icon(Icons.document_scanner),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/');
+                    Navigator.pushReplacementNamed(context, '/setAppointments');
                   },
                 ),
 

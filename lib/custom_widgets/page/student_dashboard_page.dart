@@ -15,7 +15,38 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   void logout() async {
     final user = await LogoutUsers.logout();
 
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Montserrat',
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+          contentTextStyle: TextStyle(
+            fontFamily: 'Poppins',
+            color: Colors.black,
+          ),
+          title: Text('Logging Out'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 20),
+              Text('Please wait'),
+            ],
+          ),
+        );
+      },
+    );
+
     if (user == 'session_clear') {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
       Navigator.pushReplacementNamed(context, '/loginPage');
     }
   }
@@ -88,7 +119,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       ),
       body: Column(
         children: [
-
           // Body Container
           Expanded(
             child: Column(

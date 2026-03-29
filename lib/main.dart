@@ -273,34 +273,7 @@
 //         },
 //       );
 //     } else {
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return AlertDialog(
-//             titleTextStyle: TextStyle(
-//               color: Colors.black,
-//               fontFamily: 'Montserrat',
-//               fontSize: 25,
-//               fontWeight: FontWeight.bold,
-//             ),
 
-//             contentTextStyle: TextStyle(
-//               fontFamily: 'Poppins',
-//               color: Colors.black,
-//             ),
-//             title: Text('ERROR'),
-//             content: Text('Something Went Wrong.'),
-//             actions: [
-//               TextButton(
-//                 onPressed: () {
-//                   Navigator.pop(context);
-//                 },
-//                 child: Text('Close', style: TextStyle(fontFamily: 'Poppins')),
-//               ),
-//             ],
-//           );
-//         },
-//       );
 //     }
 //   }
 
@@ -355,12 +328,7 @@
 //         return;
 //       }
 
-//       if (civilstatus == null) {
-//         ScaffoldMessenger.of(
-//           context,
-//         ).showSnackBar(SnackBar(content: Text("Please select civil status")));
-//         return;
-//       }
+
 
 //       if (gender == null) {
 //         ScaffoldMessenger.of(

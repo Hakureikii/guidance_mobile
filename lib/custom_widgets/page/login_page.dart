@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guidance/custom_widgets/input_validators.dart';
 import '../custom_field.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPageContainer extends StatefulWidget {
   final VoidCallback login;
@@ -43,6 +42,11 @@ class LoginPageContainer extends StatefulWidget {
 class LoginPageContainerState extends State<LoginPageContainer> {
 
   bool isObscured = true;
+  
+  void _register() async {
+  final Uri url = Uri.parse('http://172.29.201.215/Research_Web/register_users.html');
+  launchUrl(url);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +195,7 @@ class LoginPageContainerState extends State<LoginPageContainer> {
 
               // Footer
               TextButton(
-                onPressed: () {},
+                onPressed: _register,
                 child: Text(
                   "Don't have an account? Register here",
                   style: TextStyle(

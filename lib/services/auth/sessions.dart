@@ -20,6 +20,10 @@ class Sessions {
       return 'Faculty';
     }
 
+    if (role == 'Guardian') {
+      return 'Guardian';
+    }
+
     return null;
   }
 

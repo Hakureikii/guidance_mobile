@@ -6,8 +6,8 @@ class DatabaseConfiguration {
 
   static Future<void> initialize() async {
     await Supabase.initialize(
-      url: 'https://hmzjmvuyjyzhizvsodda.supabase.co', // project database url
-      anonKey: 'sb_publishable_WFKzntj2AHobXcaTZqM9kQ_MH38BvKf',
+      url: 'https://hmzjmvuyjyzhizvsodda.supabase.co',
+      anonKey: 'sb_publishable_WFKzntj2AHobXcaTZqM9kQ_MH38BvKf'
     );
   }
 

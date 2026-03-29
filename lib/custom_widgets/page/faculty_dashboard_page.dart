@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../services/auth/logout_users.dart';
 
 class FacultyDashboardScreen extends StatefulWidget {
   const FacultyDashboardScreen({super.key});
@@ -8,6 +9,14 @@ class FacultyDashboardScreen extends StatefulWidget {
 }
 
 class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
+  void logout() async {
+    final user = await LogoutUsers.logout();
+
+    if (user == 'session_clear') {
+      Navigator.pushReplacementNamed(context, '/loginPage');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +57,7 @@ class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
                     padding: EdgeInsets.symmetric(vertical: 20),
                     color: Colors.white,
                     icon: Icon(Icons.logout),
-                    onPressed: () {},
+                    onPressed: logout,
                   ),
                 ),
               ],
@@ -106,7 +115,7 @@ class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
                   tooltip: 'Add Appointment',
                   icon: Icon(Icons.document_scanner),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/');
+                    Navigator.pushReplacementNamed(context, '/setAppointments');
                   },
                 ),
 
