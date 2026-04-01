@@ -30,28 +30,25 @@ class _RadioGroupsState extends State<RadioGroups> {
       children: [
 
         /// Title Row
-        Row(
-          children: [
-            if (widget.icon != null) Padding(
-              padding: const EdgeInsets.only(top: 25, left: 19),
-              child: Icon(widget.icon),
-            ),
+        // Row(
+        //   children: [
+        //     if (widget.icon != null)
 
-            if (widget.icon != null) const SizedBox(width: 8),
+        //     if (widget.icon != null) const SizedBox(width: 8),
 
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                widget.radioTitle ?? '',
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 14.5,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
+        //     Padding(
+        //       padding: const EdgeInsets.only(top: 20),
+        //       child: Text(
+        //         widget.radioTitle ?? '',
+        //         style: const TextStyle(
+        //           fontFamily: 'Montserrat',
+        //           fontSize: 14.5,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
 
         /// Radio Options
         Column(

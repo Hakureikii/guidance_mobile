@@ -44,7 +44,7 @@ class LoginPageContainerState extends State<LoginPageContainer> {
   bool isObscured = true;
   
   void _register() async {
-  final Uri url = Uri.parse('http://172.29.201.215/Research_Web/register_users.html');
+  final Uri url = Uri.parse('http://10.47.222.215/Research_Web/register_users.html');
   launchUrl(url);
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guidance/templates/set_appointments.dart';
+import 'package:guidance/templates/refer_students.dart';
 import 'package:guidance/templates/test/guardian_dashboard.dart';
 import 'package:guidance/templates/test/parent_dashboard.dart';
 import 'package:guidance/templates/test/student_dashboard.dart';
@@ -20,7 +20,7 @@ void main() async {
         '/parentDashboard': (context) => ParentDashboard(),
         '/guardianDashboard': (context) => GuardianDashboard(),
         '/facultyDashboard': (context) => FacultyDashboard(),
-        '/setAppointments': (context) => SetAppointments(),
+        '/referStudents': (context) => ReferStudents(),
       },
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),

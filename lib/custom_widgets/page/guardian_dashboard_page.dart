@@ -3,8 +3,7 @@ import 'package:guidance/services/auth/logout_users.dart';
 import 'package:guidance/services/auth/sessions.dart';
 
 class GuardianDashboardScreen extends StatefulWidget {
-  final VoidCallback? logout;
-  const GuardianDashboardScreen({super.key, this.logout});
+  const GuardianDashboardScreen({super.key});
 
   @override
   State<GuardianDashboardScreen> createState() =>
@@ -123,7 +122,7 @@ class _GuardianDashboardScreenState extends State<GuardianDashboardScreen> {
                     padding: EdgeInsets.symmetric(vertical: 20),
                     color: Colors.white,
                     icon: Icon(Icons.logout),
-                    onPressed: widget.logout,
+                    onPressed: logout,
                   ),
                 ),
               ],
