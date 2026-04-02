@@ -219,8 +219,10 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
               label: 'Refer',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined),
-              label: 'Session',
+              icon: role == 'Guardian' || role == 'Parent'
+                  ? Icon(Icons.child_care)
+                  : Icon(Icons.calendar_today_outlined),
+              label: role == 'Guardian' || role == 'Parent' ? 'Children' : 'Session',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_2_outlined),
@@ -502,7 +504,7 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
                                 ),
                               ),
 
-                              SizedBox(height: 8),
+                              SizedBox(height: 15),
 
                               TextArea(
                                 label: 'About',
@@ -511,7 +513,7 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
                                 validator: Validators.required,
                               ),
 
-                              SizedBox(height: 15,),
+                              SizedBox(height: 15),
 
                               Container(
                                 padding: EdgeInsets.symmetric(vertical: 10),

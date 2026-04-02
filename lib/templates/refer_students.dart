@@ -121,8 +121,44 @@ class _ReferStudentsState extends State<ReferStudents> {
           );
         },
       );
-
       return;
+    } else {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Montserrat',
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+            contentTextStyle: TextStyle(
+              fontFamily: 'Poppins',
+              color: Colors.black,
+            ),
+            title: Text('Notice:'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [Text('Referral Not Sent!')],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

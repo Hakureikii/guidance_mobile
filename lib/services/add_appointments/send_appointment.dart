@@ -34,7 +34,7 @@ class SubmitAppointment {
         });
       } else if (role == 'Parent') {
         await DatabaseConfiguration.client.from('referrals_tb').insert({
-          'parent_guardian_id': userId,
+          'parent_id': userId,
           'reasons_for_referral': reasonsForReferral,
           'about_details': about,
           'other_details': others,

@@ -24,6 +24,10 @@ class Sessions {
       return 'Guardian';
     }
 
+    if (role == 'Parent') {
+      return 'Parent';
+    }
+
     return null;
   }
 
