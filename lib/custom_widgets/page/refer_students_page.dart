@@ -204,8 +204,10 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
             }
 
             if (index == 4) {
-              Navigator.pushReplacementNamed(context, '/'); // Notifications
-              return;
+              if (role == 'Student') {
+                Navigator.pushReplacementNamed(context, '/studentNotifications'); // Notifications
+                return;
+              }
             }
           },
 
@@ -222,7 +224,9 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
               icon: role == 'Guardian' || role == 'Parent'
                   ? Icon(Icons.child_care)
                   : Icon(Icons.calendar_today_outlined),
-              label: role == 'Guardian' || role == 'Parent' ? 'Children' : 'Session',
+              label: role == 'Guardian' || role == 'Parent'
+                  ? 'Children'
+                  : 'Session',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_2_outlined),
@@ -237,15 +241,18 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
       ),
 
       backgroundColor: Color(0xFFF4F6F5),
-      floatingActionButton: FloatingActionButton(
-        elevation: 6,
-        backgroundColor: Color(0XFF5d8299),
-        foregroundColor: Colors.white,
-        shape: CircleBorder(),
-        tooltip: 'Chat with AIGO',
-        onPressed: () {},
-        child: Icon(Icons.chat_bubble_outline, size: 20),
-      ),
+
+      floatingActionButton: role == 'Guardian' || role == 'Parent'
+          ? null
+          : FloatingActionButton(
+              elevation: 6,
+              backgroundColor: Color(0XFF5d8299),
+              foregroundColor: Colors.white,
+              shape: CircleBorder(),
+              tooltip: 'Chat with AIGO',
+              onPressed: () {},
+              child: Icon(Icons.chat_bubble_outline, size: 20),
+            ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
@@ -296,8 +303,6 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
       ),
       body: Column(
         children: [
-          //Header
-
           // Body Container
           Expanded(
             child: SingleChildScrollView(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guidance/services/notifications/notifications.dart';
 import '../../services/auth/sessions.dart';
 import '../../services/auth/logout_users.dart';
 
@@ -114,11 +115,16 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     }
   }
 
+  void checkNotifications() async {
+    final notif = await Notifications.studentNotifications();
+  }
+
   @override
   void initState() {
     super.initState();
     session();
     screenAccess();
+    checkNotifications();
   }
 
   int nav = 0;
@@ -169,7 +175,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
             }
 
             if (index == 4) {
-              Navigator.pushReplacementNamed(context, '/'); // Notifications
+              Navigator.pushReplacementNamed(context, '/studentNotifications'); // Notifications
               return;
             }
           },
@@ -250,7 +256,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       body: Center(
         child: Column(
           children: [
-            // Body Container
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
