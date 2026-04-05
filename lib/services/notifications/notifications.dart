@@ -8,7 +8,7 @@ class Notifications {
     try {
       final notif = await DatabaseConfiguration.client
           .from('appointments_tb')
-          .select('*, referral_id!inner(referred_student_id)')
+          .select('*, referral_id!inner(referred_student_id, referral_id)')
           .eq('is_read', false)
           .eq('referral_id.referred_student_id', '$userId');
           return notif;
