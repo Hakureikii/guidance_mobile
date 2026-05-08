@@ -5,6 +5,7 @@ import 'package:guidance/templates/test/parent_dashboard.dart';
 import 'package:guidance/templates/test/student_dashboard.dart';
 import 'package:guidance/templates/test/faculty_dashboard.dart';
 import 'package:guidance/templates/test/student_notifications.dart';
+import 'package:guidance/templates/test/student_profile.dart';
 import '../custom_widgets/page/login_page.dart';
 import '../custom_widgets/input_validators.dart';
 import '../services/auth/login_users.dart';
@@ -22,6 +23,7 @@ void main() async {
         '/guardianDashboard': (context) => GuardianDashboard(),
         '/facultyDashboard': (context) => FacultyDashboard(),
         '/referStudents': (context) => ReferStudents(),
+        '/studentProfile': (context) => StudentProfile(),
         '/studentNotifications': (context) => StudentNotifications(),
       },
       debugShowCheckedModeBanner: false,

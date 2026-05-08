@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guidance/services/analytics/data_count.dart';
 import 'package:guidance/services/auth/sessions.dart';
 import '../../services/auth/logout_users.dart';
 
@@ -11,6 +12,7 @@ class FacultyDashboardScreen extends StatefulWidget {
 
 class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
   String? user;
+  dynamic referralSentCount;
 
   void session() async {
     final username = await Sessions.username();
@@ -114,11 +116,19 @@ class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
     );
   }
 
+  void referralSent() async {
+    final count = await Analytics.referralSent();
+    setState(() {
+      referralSentCount = count;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     session();
     screenAccess();
+    referralSent();
   }
 
   int nav = 0;
@@ -311,7 +321,7 @@ class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Upcoming Sessions',
+                            'Referrals Sent',
                             style: TextStyle(
                               color: const Color.fromARGB(255, 108, 108, 108),
                               fontFamily: 'Poppins',
@@ -326,21 +336,23 @@ class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
                               Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  color: Color(0XFFFFF394).withAlpha(90),
+                                  color: Colors.blueAccent.withAlpha(90),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
                                   ),
                                 ),
                                 child: Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: Color.fromARGB(255, 123, 102, 0),
+                                  Icons.group_outlined,
+                                  color: Color.fromARGB(255, 4, 20, 140),
                                 ),
                               ),
 
                               SizedBox(width: 8),
 
                               Text(
-                                '0',
+                                referralSentCount == null
+                                          ? '0'
+                                          : '$referralSentCount',
                                 style: TextStyle(
                                   color: const Color.fromARGB(
                                     255,
@@ -359,192 +371,6 @@ class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
                     ),
 
                     SizedBox(height: 15),
-
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.93,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 0.25,
-                                strokeAlign: BorderSide.strokeAlignInside,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.46,
-                            padding: EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Sessions Done',
-                                  style: TextStyle(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      108,
-                                      108,
-                                      108,
-                                    ),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-
-                                SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.greenAccent.withAlpha(90),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      ),
-                                      child: Icon(
-                                        Icons.check_circle_outline,
-                                        color: Color(0xFF048c6c),
-                                      ),
-                                    ),
-
-                                    SizedBox(width: 8),
-
-                                    Text(
-                                      '0',
-                                      style: TextStyle(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          108,
-                                          108,
-                                          108,
-                                        ),
-                                        fontSize: 25,
-                                        fontFamily: 'Archivo_black',
-                                      ),
-                                    ), // change to a real counter
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 0.25,
-                                strokeAlign: BorderSide.strokeAlignInside,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.46,
-                            padding: EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Referrals Sent',
-                                  style: TextStyle(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      108,
-                                      108,
-                                      108,
-                                    ),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-
-                                SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueAccent.withAlpha(90),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      ),
-                                      child: Icon(
-                                        Icons.group_outlined,
-                                        color: Color.fromARGB(255, 4, 20, 140),
-                                      ),
-                                    ),
-
-                                    SizedBox(width: 8),
-
-                                    Text(
-                                      '0',
-                                      style: TextStyle(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          108,
-                                          108,
-                                          108,
-                                        ),
-                                        fontSize: 25,
-                                        fontFamily: 'Archivo_black',
-                                      ),
-                                    ), // change to a real counter
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(height: 15),
-
-                    Text(
-                      'UPCOMING SESSIONS',
-                      style: TextStyle(
-                        letterSpacing: 2,
-                        fontSize: 11,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 116, 116, 116),
-                      ),
-                    ),
-
-                    SizedBox(height: 15),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 0.25,
-                          strokeAlign: BorderSide.strokeAlignInside,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      width: MediaQuery.of(context).size.width * 0.93,
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '-No upcoming sessions-',
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 108, 108, 108),
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-
-                            SizedBox(height: 8),
-                          ],
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),

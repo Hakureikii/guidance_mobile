@@ -199,7 +199,7 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
             }
 
             if (index == 3) {
-              Navigator.pushReplacementNamed(context, '/'); // Profile
+              Navigator.pushReplacementNamed(context, role == 'Student' ? '/studentProfile' : '/'); // Profile
               return;
             }
 
@@ -242,7 +242,7 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
 
       backgroundColor: Color(0xFFF4F6F5),
 
-      floatingActionButton: role == 'Guardian' || role == 'Parent'
+      floatingActionButton: role == 'Guardian' || role == 'Parent' || role == 'Faculty'
           ? null
           : FloatingActionButton(
               elevation: 6,

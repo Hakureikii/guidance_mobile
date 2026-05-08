@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:guidance/custom_widgets/radio_groups.dart';
+import 'package:guidance/services/analytics/data_count.dart';
+import 'package:guidance/services/database_configuration.dart';
 import 'package:guidance/services/notifications/notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/auth/sessions.dart';
 import '../../services/auth/logout_users.dart';
 
@@ -12,6 +16,9 @@ class StudentDashboardScreen extends StatefulWidget {
 
 class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   String? user;
+  String? choices;
+  dynamic referralSentCount;
+  dynamic appointments;
 
   void logoutModal() async {
     showDialog(
@@ -115,8 +122,231 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     }
   }
 
+  void newUser() async {
+    final sessions = await SharedPreferences.getInstance();
+    final userId = sessions.getInt('userId');
+    final user = await DatabaseConfiguration.client
+        .from('student_tb')
+        .select('assessed')
+        .eq('student_id', userId.toString())
+        .single();
+
+    if (!user['assessed']) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          String? localChoice1 = choices;
+          String? localChoice2 = choices;
+          String? localChoice3 = choices;
+          String? localChoice4 = choices;
+          String? localChoice5 = choices;
+          String? localChoice6 = choices;
+          String? localChoice7 = choices;
+
+          return StatefulBuilder(
+            builder: (context, setDialogState) {
+              return AlertDialog(
+                scrollable: true,
+                title: Text('Assessment'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 10),
+                    const Text('In the past month:'),
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      '1. Have you wished you were dead or wished you could go to sleep and not wake up?',
+                    ),
+                    const SizedBox(height: 10),
+                    RadioGroups(
+                      selectedValue: localChoice1,
+                      radioTitle: null,
+                      options: ['Yes', 'No'],
+                      onChanged: (value) {
+                        setDialogState(() {
+                          localChoice1 = value;
+                        });
+
+                        // optional: sync with parent
+                        choices = value;
+                      },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      '2. Have You actually had any thoughts of killing yourself?',
+                    ),
+
+                    const SizedBox(height: 10),
+                    RadioGroups(
+                      selectedValue: localChoice2,
+                      radioTitle: null,
+                      options: ['Yes', 'No'],
+                      onChanged: (value) {
+                        setDialogState(() {
+                          localChoice2 = value;
+                        });
+
+                        // optional: sync with parent
+                        choices = value;
+                      },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      '3. Have you been thinking about how you might do this?\nE.g "I thought about taking an overdose but i never made a specific plan as to when where or how I would actually do it... and I would never go through it."',
+                    ),
+
+                    const SizedBox(height: 10),
+                    RadioGroups(
+                      selectedValue: localChoice3,
+                      radioTitle: null,
+                      options: ['Yes', 'No'],
+                      onChanged: localChoice2 == 'No'
+                          ? null
+                          : (value) {
+                              setDialogState(() {
+                                localChoice3 = value;
+                              });
+
+                              // optional: sync with parent
+                              choices = value;
+                            },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      '4. Have you had these thoughts and had some intention of acting on them?\nAs opposed to "I have the thought but I definitely will not do anything about them."',
+                    ),
+
+                    const SizedBox(height: 10),
+                    RadioGroups(
+                      selectedValue: localChoice4,
+                      radioTitle: null,
+                      options: ['Yes', 'No'],
+                      onChanged: localChoice2 == 'No'
+                          ? null
+                          : (value) {
+                              setDialogState(() {
+                                localChoice4 = value;
+                              });
+
+                              // optional: sync with parent
+                              choices = value;
+                            },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      '5. Have you started to work out or worked out the details of how to kill yourself? Do you intend to carry out this plan?',
+                    ),
+
+                    const SizedBox(height: 10),
+                    RadioGroups(
+                      selectedValue: localChoice5,
+                      radioTitle: null,
+                      options: ['Yes', 'No'],
+                      onChanged: localChoice2 == 'No'
+                          ? null
+                          : (value) {
+                              setDialogState(() {
+                                localChoice5 = value;
+                              });
+
+                              // optional: sync with parent
+                              choices = value;
+                            },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      '6. Have you ever done anything, started to do anything, or prepared to do anything to end your life?\nExamples: Collected pills, obtained a gun, gave away valuabless, wrote a will or suicide note, took out pills but didnt swallow any, held a gun but changed your mind or it was grabbed from your hand, went to the roof but didnt jump; or actually took pills, tried to shoot yourself, cut yourself, tried to hang yourself, etc.',
+                    ),
+
+                    const SizedBox(height: 10),
+                    RadioGroups(
+                      selectedValue: localChoice6,
+                      radioTitle: null,
+                      options: ['Yes', 'No'],
+                      onChanged: (value) {
+                        setDialogState(() {
+                          localChoice6 = value;
+                        });
+
+                        // optional: sync with parent
+                        choices = value;
+                      },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text('7. Was this within the past three months?'),
+
+                    const SizedBox(height: 10),
+                    RadioGroups(
+                      selectedValue: localChoice7,
+                      radioTitle: null,
+                      options: ['Yes', 'No'],
+                      onChanged: localChoice6 == 'No'
+                          ? null
+                          : (value) {
+                              setDialogState(() {
+                                localChoice7 = value;
+                              });
+
+                              // optional: sync with parent
+                              choices = value;
+                            },
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () async {
+                      final sessions = await SharedPreferences.getInstance();
+                      final userId = sessions.getInt('userId');
+                      final response = await DatabaseConfiguration.client
+                          .from('student_tb')
+                          .update({'assessed': true})
+                          .eq('student_id', userId.toString());
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: const Text('Submit'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
+  }
+
   void checkNotifications() async {
     final notif = await Notifications.studentNotifications();
+  }
+
+  void referralSent() async {
+    final count = await Analytics.referralSent();
+    setState(() {
+      referralSentCount = count;
+    });
+  }
+
+  void upcomingAppointments() async {
+    final count = await Analytics.upcomingAppointments();
+    setState(() {
+      appointments = count;
+    });
   }
 
   @override
@@ -125,6 +355,9 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     session();
     screenAccess();
     checkNotifications();
+    newUser();
+    referralSent();
+    upcomingAppointments();
   }
 
   int nav = 0;
@@ -157,25 +390,28 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
             }
 
             if (index == 1) {
-              Navigator.pushReplacementNamed(context, '/referStudents'); // Refer
+              Navigator.pushReplacementNamed(
+                context,
+                '/referStudents',
+              ); // Refer
               return;
             }
 
             if (index == 2) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/',
-              ); // Session
+              Navigator.pushReplacementNamed(context, '/'); // Session
               return;
             }
 
             if (index == 3) {
-              Navigator.pushReplacementNamed(context, '/'); // Profile
+              Navigator.pushReplacementNamed(context, '/studentProfile'); // Profile
               return;
             }
 
             if (index == 4) {
-              Navigator.pushReplacementNamed(context, '/studentNotifications'); // Notifications
+              Navigator.pushReplacementNamed(
+                context,
+                '/studentNotifications',
+              ); // Notifications
               return;
             }
           },
@@ -357,7 +593,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                               SizedBox(width: 8),
 
                               Text(
-                                '0',
+                                appointments == null ? '0' : '$appointments',
                                 style: TextStyle(
                                   color: const Color.fromARGB(
                                     255,
@@ -496,7 +732,9 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                                     SizedBox(width: 8),
 
                                     Text(
-                                      '0',
+                                      referralSentCount == null
+                                          ? '0'
+                                          : '$referralSentCount',
                                       style: TextStyle(
                                         color: const Color.fromARGB(
                                           255,

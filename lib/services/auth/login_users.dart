@@ -26,6 +26,7 @@ class LoginUsers {
           storage.setInt('userId', userId);
           storage.setString('role', role);
           storage.setString('username', data['first_name']);
+          storage.setString('token', data['random_character_string']);
           login = 'loginStudent';
         }
       } else if (role == 'Faculty') {

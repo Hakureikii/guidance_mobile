@@ -92,6 +92,7 @@ class _GuardianDashboardScreenState extends State<GuardianDashboardScreen> {
 
   void session() async {
     final username = await Sessions.username();
+    print(username);
 
     setState(() {
       user = '$username';
@@ -100,6 +101,8 @@ class _GuardianDashboardScreenState extends State<GuardianDashboardScreen> {
 
   void screenAccess() async {
     final session = await Sessions.validate();
+
+    print(session);
     if (session == 'no session') {
       Navigator.pushReplacementNamed(context, '/loginPage');
       return;
@@ -110,6 +113,7 @@ class _GuardianDashboardScreenState extends State<GuardianDashboardScreen> {
     } else {
       Navigator.pushReplacementNamed(context, '/loginPage');
     }
+
     ;
   }
 
@@ -119,7 +123,7 @@ class _GuardianDashboardScreenState extends State<GuardianDashboardScreen> {
   void initState() {
     super.initState();
     session();
-    screenAccess();
+    // screenAccess();
   }
 
   @override

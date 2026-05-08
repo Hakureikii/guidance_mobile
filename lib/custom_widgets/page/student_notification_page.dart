@@ -129,7 +129,7 @@ class _StudentNotificationsScreenState
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                'Privacy Commitment: All information shared—whether written, verbal, or digital—is strictly confidential. This protection is binding and remains in full effect before our first meeting, during the course of our sessions, and indefinitely after our professional relationship has ended.',
               ),
             ],
           ),
@@ -254,7 +254,7 @@ class _StudentNotificationsScreenState
     if (context.mounted) {
       Navigator.of(context).pop();
     }
-    
+
     final response = await DeclineAppointment.declineAppointment(
       id,
       reasonController.text,
@@ -424,7 +424,10 @@ class _StudentNotificationsScreenState
             }
 
             if (index == 3) {
-              Navigator.pushReplacementNamed(context, '/'); // Profile
+              Navigator.pushReplacementNamed(
+                context,
+                '/studentProfile',
+              ); // Profile
               return;
             }
 
@@ -544,56 +547,117 @@ class _StudentNotificationsScreenState
 
                                       Column(
                                         children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              OutlinedButton(
-                                                style: OutlinedButton.styleFrom(
-                                                  side: BorderSide(
-                                                    color: Colors.redAccent,
+                                          notifications[i]['status'] ==
+                                                  'Accepted'
+                                              ? Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0XFF048c6c),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          20,
+                                                        ),
                                                   ),
-                                                  foregroundColor:
-                                                      Colors.redAccent,
-                                                ),
-                                                onPressed: () {
-                                                  declineAppointmentModal(
-                                                    notifications[i]['referral_id']['referral_id'],
-                                                  );
-                                                },
-                                                child: Text(
-                                                  'Decline',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
+                                                  width:
+                                                      MediaQuery.of(
+                                                        context,
+                                                      ).size.width *
+                                                      0.3,
+                                                  child: Text(
+                                                    'Accepted',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
+                                                )
+                                              : notifications[i]['status'] ==
+                                                    'Declined'
+                                              ? Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Color.fromARGB(255, 140, 4, 4),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          20,
+                                                        ),
+                                                  ),
+                                                  width:
+                                                      MediaQuery.of(
+                                                        context,
+                                                      ).size.width *
+                                                      0.3,
+                                                  child: Text(
+                                                    'Declined',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    OutlinedButton(
+                                                      style:
+                                                          OutlinedButton.styleFrom(
+                                                            side: BorderSide(
+                                                              color: Colors
+                                                                  .redAccent,
+                                                            ),
+                                                            foregroundColor:
+                                                                Colors
+                                                                    .redAccent,
+                                                          ),
+                                                      onPressed: () {
+                                                        declineAppointmentModal(
+                                                          notifications[i]['referral_id']['referral_id'],
+                                                        );
+                                                      },
+                                                      child: Text(
+                                                        'Decline',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Poppins',
+                                                        ),
+                                                      ),
+                                                    ),
 
-                                              SizedBox(width: 8),
+                                                    SizedBox(width: 8),
 
-                                              OutlinedButton(
-                                                style: OutlinedButton.styleFrom(
-                                                  side: BorderSide(
-                                                    color: Color(0xFF048c6c),
-                                                  ),
-                                                  foregroundColor: Color(
-                                                    0xFF048c6c,
-                                                  ),
+                                                    OutlinedButton(
+                                                      style:
+                                                          OutlinedButton.styleFrom(
+                                                            side: BorderSide(
+                                                              color: Color(
+                                                                0xFF048c6c,
+                                                              ),
+                                                            ),
+                                                            foregroundColor:
+                                                                Color(
+                                                                  0xFF048c6c,
+                                                                ),
+                                                          ),
+                                                      onPressed: () {
+                                                        acceptAppointmentModal(
+                                                          notifications[i]['referral_id']['referral_id'],
+                                                        );
+                                                      },
+                                                      child: Text(
+                                                        'Accept',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Poppins',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                onPressed: () {
-                                                  acceptAppointmentModal(
-                                                    notifications[i]['referral_id']['referral_id'],
-                                                  );
-                                                },
-                                                child: Text(
-                                                  'Accept',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                         ],
                                       ),
                                     ],

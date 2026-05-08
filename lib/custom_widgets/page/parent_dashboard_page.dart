@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guidance/services/analytics/data_count.dart';
 import 'package:guidance/services/auth/logout_users.dart';
 import 'package:guidance/services/auth/sessions.dart';
 
@@ -12,6 +13,7 @@ class ParentDashboardScreen extends StatefulWidget {
 
 class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
   String? user;
+  dynamic referralSentCount;
 
   void logoutModal() async {
     showDialog(
@@ -115,11 +117,20 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
 
   int nav = 0;
 
+  void referralSent() async {
+    final count = await Analytics.referralSent();
+    setState(() {
+      referralSentCount = count;
+    });
+    print(referralSentCount);
+  }
+
   @override
   void initState() {
     super.initState();
     session();
     screenAccess();
+    referralSent();
   }
 
   @override
@@ -479,7 +490,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
                                     SizedBox(width: 8),
 
                                     Text(
-                                      '0',
+                                      referralSentCount == null ? '0' : '$referralSentCount',
                                       style: TextStyle(
                                         color: const Color.fromARGB(
                                           255,
