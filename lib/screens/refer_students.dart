@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guidance/custom_widgets/page/refer_students_page.dart';
-import 'package:guidance/custom_widgets/search_suggestions.dart';
+import 'package:guidance/widgets/page/refer_students_page.dart';
+import 'package:guidance/utils/search_suggestions.dart';
 import 'package:guidance/services/add_appointments/send_appointment.dart';
 
 class ReferStudents extends StatefulWidget {

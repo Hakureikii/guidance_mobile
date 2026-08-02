@@ -1,4 +1,4 @@
-import '../database_configuration.dart';
+import '../../database/database_configuration.dart';
 import 'package:bcrypt/bcrypt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:guidance/custom_widgets/custom_field.dart';
-import 'package:guidance/custom_widgets/input_validators.dart';
+import 'package:guidance/widgets/custom_field.dart';
+import 'package:guidance/utils/input_validators.dart';
 import 'package:guidance/services/add_appointments/call_handler.dart';
 import 'package:guidance/services/auth/logout_users.dart';
 import 'package:guidance/services/auth/sessions.dart';
 import 'package:guidance/services/notifications/notifications.dart';
 
-class StudentNotificationsScreen extends StatefulWidget {
-  const StudentNotificationsScreen({super.key});
+class StudentNotifications extends StatefulWidget {
+  const StudentNotifications({super.key});
 
   @override
-  State<StudentNotificationsScreen> createState() =>
-      _StudentNotificationsScreenState();
+  State<StudentNotifications> createState() => _StudentNotificationsState();
 }
 
-class _StudentNotificationsScreenState
-    extends State<StudentNotificationsScreen> {
+class _StudentNotificationsState extends State<StudentNotifications> {
   String? role;
   dynamic notifications;
   TextEditingController reasonController = TextEditingController();
@@ -580,7 +578,12 @@ class _StudentNotificationsScreenState
                                                   padding: EdgeInsets.all(5),
                                                   alignment: Alignment.center,
                                                   decoration: BoxDecoration(
-                                                    color: Color.fromARGB(255, 140, 4, 4),
+                                                    color: Color.fromARGB(
+                                                      255,
+                                                      140,
+                                                      4,
+                                                      4,
+                                                    ),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                           20,

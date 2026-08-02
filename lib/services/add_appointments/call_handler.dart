@@ -1,4 +1,4 @@
-import 'package:guidance/services/database_configuration.dart';
+import 'package:guidance/database/database_configuration.dart';
 
 class AcceptAppointment {
   static Future<dynamic> acceptAppointment(int id) async {

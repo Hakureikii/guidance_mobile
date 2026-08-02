@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:guidance/services/analytics/data_count.dart';
 import 'package:guidance/services/auth/logout_users.dart';
 import 'package:guidance/services/auth/sessions.dart';
 
-class ParentDashboardScreen extends StatefulWidget {
-  const ParentDashboardScreen({super.key});
-
-  @override
-  State<ParentDashboardScreen> createState() =>
-      _ParentDashboardScreenState();
+void main() {
+  runApp(
+    MaterialApp(debugShowCheckedModeBanner: false, home: GuardianDashboard()),
+  );
 }
 
-class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
+class GuardianDashboard extends StatefulWidget {
+  const GuardianDashboard({super.key});
+
+  @override
+  State<GuardianDashboard> createState() => _GuardianDashboardState();
+}
+
+class _GuardianDashboardState extends State<GuardianDashboard> {
   String? user;
-  dynamic referralSentCount;
 
   void logoutModal() async {
     showDialog(
@@ -94,6 +97,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
 
   void session() async {
     final username = await Sessions.username();
+    print(username);
 
     setState(() {
       user = '$username';
@@ -102,35 +106,28 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
 
   void screenAccess() async {
     final session = await Sessions.validate();
+
+    print(session);
     if (session == 'no session') {
       Navigator.pushReplacementNamed(context, '/loginPage');
       return;
     }
 
-    if (session == 'Parent') {
+    if (session == 'Guardian') {
       return;
     } else {
       Navigator.pushReplacementNamed(context, '/loginPage');
     }
-    ;
+
   }
 
   int nav = 0;
-
-  void referralSent() async {
-    final count = await Analytics.referralSent();
-    setState(() {
-      referralSentCount = count;
-    });
-    print(referralSentCount);
-  }
 
   @override
   void initState() {
     super.initState();
     session();
-    screenAccess();
-    referralSent();
+    // screenAccess();
   }
 
   @override
@@ -490,7 +487,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
                                     SizedBox(width: 8),
 
                                     Text(
-                                      referralSentCount == null ? '0' : '$referralSentCount',
+                                      '0',
                                       style: TextStyle(
                                         color: const Color.fromARGB(
                                           255,

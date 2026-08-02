@@ -1,5 +1,5 @@
 // import 'package:supabase_flutter/supabase_flutter.dart';
-import '../database_configuration.dart';
+import '../../database/database_configuration.dart';
 import 'package:flutter/material.dart';
 
 class InsertDataInventory {

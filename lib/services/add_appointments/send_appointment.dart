@@ -1,4 +1,4 @@
-import '../database_configuration.dart';
+import '../../database/database_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SubmitAppointment {

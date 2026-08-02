@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import '../database_configuration.dart';
+import '../../database/database_configuration.dart';
 
 class Notifications {
   static Future<dynamic> studentNotifications() async {

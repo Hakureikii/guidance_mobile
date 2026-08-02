@@ -1,4 +1,4 @@
-import 'package:guidance/services/database_configuration.dart';
+import 'package:guidance/database/database_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Analytics {

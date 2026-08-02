@@ -1,4 +1,4 @@
-import '../services/database_configuration.dart';
+import '../database/database_configuration.dart';
 
 class SearchSuggestions {
   static Future <dynamic> suggestions (String? value) async {

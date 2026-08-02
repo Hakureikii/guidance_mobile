@@ -3,7 +3,7 @@ import 'package:guidance/services/auth/sessions.dart';
 import '../../services/auth/logout_users.dart';
 import '../custom_field.dart';
 import '../radio_groups.dart';
-import '../input_validators.dart';
+import '../../utils/input_validators.dart';
 
 class ReferStudentsPage extends StatefulWidget {
   final TextEditingController nameController;

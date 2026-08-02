@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:guidance/custom_widgets/radio_groups.dart';
+import 'package:guidance/widgets/radio_groups.dart';
 import 'package:guidance/services/analytics/data_count.dart';
-import 'package:guidance/services/database_configuration.dart';
+import 'package:guidance/database/database_configuration.dart';
 import 'package:guidance/services/notifications/notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/auth/sessions.dart';
 import '../../services/auth/logout_users.dart';
 
-class StudentDashboardScreen extends StatefulWidget {
-  const StudentDashboardScreen({super.key});
-
-  @override
-  State<StudentDashboardScreen> createState() => _StudentDashboardScreenState();
+void main () {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: StudentDashboard(),
+  ));
 }
 
-class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
+class StudentDashboard extends StatefulWidget {
+  const StudentDashboard({super.key});
+
+  @override
+  State<StudentDashboard> createState() => _StudentDashboardState();
+}
+
+class _StudentDashboardState extends State<StudentDashboard> {
   String? user;
   String? choices;
   dynamic referralSentCount;

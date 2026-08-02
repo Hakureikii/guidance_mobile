@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guidance/services/auth/logout_users.dart';
 import 'package:guidance/services/auth/sessions.dart';
-import 'package:guidance/services/database_configuration.dart';
+import 'package:guidance/database/database_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 

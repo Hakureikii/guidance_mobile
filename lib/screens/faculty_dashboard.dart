@@ -3,14 +3,20 @@ import 'package:guidance/services/analytics/data_count.dart';
 import 'package:guidance/services/auth/sessions.dart';
 import '../../services/auth/logout_users.dart';
 
-class FacultyDashboardScreen extends StatefulWidget {
-  const FacultyDashboardScreen({super.key});
-
-  @override
-  State<FacultyDashboardScreen> createState() => _FacultyDashboardScreenState();
+void main() {
+  runApp(
+    MaterialApp(debugShowCheckedModeBanner: false, home: FacultyDashboard()),
+  );
 }
 
-class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
+class FacultyDashboard extends StatefulWidget {
+  const FacultyDashboard({super.key});
+
+  @override
+  State<FacultyDashboard> createState() => _FacultyDashboardState();
+}
+
+class _FacultyDashboardState extends State<FacultyDashboard> {
   String? user;
   dynamic referralSentCount;
 
@@ -351,8 +357,8 @@ class _FacultyDashboardScreenState extends State<FacultyDashboardScreen> {
 
                               Text(
                                 referralSentCount == null
-                                          ? '0'
-                                          : '$referralSentCount',
+                                    ? '0'
+                                    : '$referralSentCount',
                                 style: TextStyle(
                                   color: const Color.fromARGB(
                                     255,
