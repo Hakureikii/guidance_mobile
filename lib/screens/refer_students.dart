@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:guidance/widgets/page/refer_students_page.dart';
 import 'package:guidance/utils/search_suggestions.dart';
 import 'package:guidance/services/add_appointments/send_appointment.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ReferStudents extends StatefulWidget {
   const ReferStudents({super.key});
@@ -12,6 +14,8 @@ class ReferStudents extends StatefulWidget {
 
 class _ReferStudentsState extends State<ReferStudents> {
   String? reasons;
+  String? prediction;
+  List<dynamic>? probabilities;
   TextEditingController nameController = TextEditingController();
   TextEditingController studentIdController = TextEditingController();
   TextEditingController aboutController = TextEditingController();
@@ -34,6 +38,22 @@ class _ReferStudentsState extends State<ReferStudents> {
       namesuggestions = names;
     });
   }
+
+  Future<void> sendToPython() async {
+      final url = Uri.parse("http://127.0.0.1:5000/add");
+
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"aboutDetails": aboutController.text}),
+      );
+
+      final analysis = jsonDecode(response.body);
+      setState(() {
+        prediction = analysis["prediction"];
+        probabilities = analysis["probabilities"];
+      });
+    }
 
   void submit() async {
     if (context.mounted) {
@@ -66,8 +86,11 @@ class _ReferStudentsState extends State<ReferStudents> {
         );
       },
     );
+    sendToPython();
 
     await Future.delayed(Duration(seconds: 1));
+
+    
 
     final response = await SubmitAppointment.submitAppointment(
       nameController.text,
@@ -75,6 +98,8 @@ class _ReferStudentsState extends State<ReferStudents> {
       reasons,
       aboutController.text,
       othersController.text,
+      prediction,
+      probabilities,
     );
 
     if (response == 'Success') {
