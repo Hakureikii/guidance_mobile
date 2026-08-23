@@ -15,6 +15,7 @@ class ReferStudents extends StatefulWidget {
 class _ReferStudentsState extends State<ReferStudents> {
   String? reasons;
   String? prediction;
+  String? intensity;
   List<dynamic>? probabilities;
   TextEditingController nameController = TextEditingController();
   TextEditingController studentIdController = TextEditingController();
@@ -50,9 +51,14 @@ class _ReferStudentsState extends State<ReferStudents> {
 
       final analysis = jsonDecode(response.body);
       setState(() {
-        prediction = analysis["prediction"];
-        probabilities = analysis["probabilities"];
+        prediction = analysis["analysis"]["prediction"];
+        probabilities = analysis["analysis"]["probabilities"];
+        intensity = analysis["intensity"];
       });
+
+      debugPrint(prediction.toString());
+      debugPrint(probabilities.toString());
+      debugPrint(intensity.toString());
     }
 
   void submit() async {
@@ -88,103 +94,102 @@ class _ReferStudentsState extends State<ReferStudents> {
     );
     sendToPython();
 
-    await Future.delayed(Duration(seconds: 1));
-
+    // await Future.delayed(Duration(seconds: 1));
     
+    // final response = await SubmitAppointment.submitAppointment(
+    //   nameController.text,
+    //   studentIdController.text,
+    //   reasons,
+    //   aboutController.text,
+    //   othersController.text,
+    //   prediction,
+    //   intensity,
+    //   probabilities,
+    // );
 
-    final response = await SubmitAppointment.submitAppointment(
-      nameController.text,
-      studentIdController.text,
-      reasons,
-      aboutController.text,
-      othersController.text,
-      prediction,
-      probabilities,
-    );
+    // if (response == 'Success') {
+    //   nameController.clear();
+    //   studentIdController.clear();
+    //   aboutController.clear();
+    //   othersController.clear();
 
-    if (response == 'Success') {
-      nameController.clear();
-      studentIdController.clear();
-      aboutController.clear();
-      othersController.clear();
+    //   //Modal showing successful sending of appointment/referral
+    //   if (context.mounted) {
+    //     Navigator.of(context).pop();
+    //   }
 
-      //Modal showing successful sending of appointment/referral
-      if (context.mounted) {
-        Navigator.of(context).pop();
-      }
-
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            titleTextStyle: TextStyle(
-              color: Colors.black,
-              fontFamily: 'Montserrat',
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-            contentTextStyle: TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.black,
-            ),
-            title: Text('Notice:'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [Text('Referral Sent!')],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Text('Done'),
-              ),
-            ],
-          );
-        },
-      );
-      return;
-    } else {
-      if (context.mounted) {
-        Navigator.of(context).pop();
-      }
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            titleTextStyle: TextStyle(
-              color: Colors.black,
-              fontFamily: 'Montserrat',
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-            contentTextStyle: TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.black,
-            ),
-            title: Text('Notice:'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [Text('Referral Not Sent!')],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
-    }
+    //   showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         titleTextStyle: TextStyle(
+    //           color: Colors.black,
+    //           fontFamily: 'Montserrat',
+    //           fontSize: 25,
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //         contentTextStyle: TextStyle(
+    //           fontFamily: 'Poppins',
+    //           color: Colors.black,
+    //         ),
+    //         title: Text('Notice:'),
+    //         content: Column(
+    //           mainAxisSize: MainAxisSize.min,
+    //           children: [Text('Referral Sent!')],
+    //         ),
+    //         actions: [
+    //           TextButton(
+    //             onPressed: () {
+    //               if (context.mounted) {
+    //                 Navigator.of(context).pop();
+    //               }
+    //             },
+    //             child: Text('Done'),
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    //   return;
+    // } else {
+    //   if (context.mounted) {
+    //     Navigator.of(context).pop();
+    //   }
+    //   showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         titleTextStyle: TextStyle(
+    //           color: Colors.black,
+    //           fontFamily: 'Montserrat',
+    //           fontSize: 25,
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //         contentTextStyle: TextStyle(
+    //           fontFamily: 'Poppins',
+    //           color: Colors.black,
+    //         ),
+    //         title: Text('Notice:'),
+    //         content: Column(
+    //           mainAxisSize: MainAxisSize.min,
+    //           children: [Text('Referral Not Sent!')],
+    //         ),
+    //         actions: [
+    //           TextButton(
+    //             onPressed: () {
+    //               if (context.mounted) {
+    //                 Navigator.of(context).pop();
+    //               }
+    //             },
+    //             child: Text('Close'),
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
   }
 
   void submitModal() async {

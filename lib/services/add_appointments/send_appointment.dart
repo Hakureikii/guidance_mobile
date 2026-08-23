@@ -9,6 +9,7 @@ class SubmitAppointment {
     String? about,
     String? others,
     String? prediction,
+    String? intensity,
     List<dynamic>? probabilities,
   ) async {
     final session = await SharedPreferences.getInstance();
@@ -25,7 +26,8 @@ class SubmitAppointment {
           'name_of_student': name,
           'referred_student_id': studentId,
           'prediction': prediction,
-          'probabilities': probabilities
+          'probabilities': probabilities,
+          'intensity': intensity
         });
       } else if (role == 'Faculty') {
         await DatabaseConfiguration.client.from('referrals_tb').insert({
@@ -36,7 +38,8 @@ class SubmitAppointment {
           'name_of_student': name,
           'referred_student_id': studentId,
           'prediction': prediction,
-          'probabilities': probabilities
+          'probabilities': probabilities,
+          'intensity': intensity
         });
       } else if (role == 'Parent') {
         await DatabaseConfiguration.client.from('referrals_tb').insert({
@@ -47,7 +50,8 @@ class SubmitAppointment {
           'name_of_student': name,
           'referred_student_id': studentId,
           'prediction': prediction,
-          'probabilities': probabilities
+          'probabilities': probabilities,
+          'intensity': intensity
         });
       } else if (role == 'Guardian') {
         await DatabaseConfiguration.client.from('referrals_tb').insert({
@@ -58,7 +62,8 @@ class SubmitAppointment {
           'name_of_student': name,
           'referred_student_id': studentId,
           'prediction': prediction,
-          'probabilities': probabilities
+          'probabilities': probabilities,
+          'intensity': intensity
         });
       }
 

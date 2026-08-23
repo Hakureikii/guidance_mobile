@@ -6,7 +6,7 @@ import os
 # Create a class for the model and evaluate method which returns the result, findings, and percentages of each categories
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(script_dir, "dataset_v1.2.xlsx")
+file_path = os.path.join(script_dir, "dataset_v1.3.xlsx")
 
 class Analysis:
     def __init__(self):
@@ -45,8 +45,7 @@ class Analysis:
         intensity = str(self.model.predict(test)[0])
         
         return intensity
-        
-        
+    
 test = Analysis()
-print(test.evaluate("This person recently has his mother and father seperated and it affects his mood"))
-print(test.intensity("This person recently has his mother and father seperated and it affects his mood"))
+print(test.evaluate("She's been turning in blank test papers for two weeks straight and won't explain why."))
+print(test.intensity("She's been turning in blank test papers for two weeks straight and won't explain why."))
