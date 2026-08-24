@@ -1,7 +1,10 @@
 import 'package:guidance/database/database_configuration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AcceptAppointment {
   static Future<dynamic> acceptAppointment(int appointmentId) async {
+    final session = await SharedPreferences.getInstance();
+    final studentId = session.getInt('userId');
     try {
       await DatabaseConfiguration.client
           .from("appointments_tb")
@@ -9,6 +12,15 @@ class AcceptAppointment {
           .eq("appointment_id", appointmentId);
 
       // ADD NEW SESSION RECORD
+
+      await DatabaseConfiguration.client
+        .from("session_tb")
+        .insert({
+          "student_id":  studentId,
+          "appointment_id": appointmentId,
+          "completed": false,
+          "walk_in": false,
+        });
 
       // final referral_id = await DatabaseConfiguration.client
       //   .from("appointments_tb")
