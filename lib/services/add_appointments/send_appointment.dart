@@ -27,7 +27,7 @@ class SubmitAppointment {
           'referred_student_id': studentId,
           'prediction': prediction,
           'probabilities': probabilities,
-          'intensity': intensity
+          'intensity': intensity,
         });
       } else if (role == 'Faculty') {
         await DatabaseConfiguration.client.from('referrals_tb').insert({
@@ -39,7 +39,7 @@ class SubmitAppointment {
           'referred_student_id': studentId,
           'prediction': prediction,
           'probabilities': probabilities,
-          'intensity': intensity
+          'intensity': intensity,
         });
       } else if (role == 'Parent') {
         await DatabaseConfiguration.client.from('referrals_tb').insert({
@@ -51,7 +51,7 @@ class SubmitAppointment {
           'referred_student_id': studentId,
           'prediction': prediction,
           'probabilities': probabilities,
-          'intensity': intensity
+          'intensity': intensity,
         });
       } else if (role == 'Guardian') {
         await DatabaseConfiguration.client.from('referrals_tb').insert({
@@ -63,7 +63,7 @@ class SubmitAppointment {
           'referred_student_id': studentId,
           'prediction': prediction,
           'probabilities': probabilities,
-          'intensity': intensity
+          'intensity': intensity,
         });
       }
 

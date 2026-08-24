@@ -649,7 +649,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
                                                           ),
                                                       onPressed: () {
                                                         acceptAppointmentModal(
-                                                          notifications[i]['referral_id']['referral_id'],
+                                                          notifications[i]['appointment_id'],
                                                         );
                                                       },
                                                       child: Text(
