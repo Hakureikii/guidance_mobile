@@ -13,22 +13,13 @@ class AcceptAppointment {
 
       // ADD NEW SESSION RECORD
 
-      await DatabaseConfiguration.client
-        .from("session_tb")
-        .insert({
-          "student_id":  studentId,
-          "appointment_id": appointmentId,
-          "completed": false,
-          "walk_in": false,
-        });
-
-      // final referral_id = await DatabaseConfiguration.client
-      //   .from("appointments_tb")
-      //   .select("*");
-      // final response = await DatabaseConfiguration.client
-      //     .from('appointments_tb')
-      //     .update({'status': 'Accepted'})
-      //     .eq('referral_id', id);
+      await DatabaseConfiguration.client.from("session_tb").insert({
+        "student_id": studentId,
+        "remarks": null,
+        "appointment_id": appointmentId,
+        "completed": false,
+        "walk_in": false,
+      });
 
       return 'accepted';
     } catch (e) {
@@ -44,6 +35,9 @@ class DeclineAppointment {
           .from('appointments_tb')
           .update({'status': 'Declined', 'reason_for_declining': reason})
           .eq('referral_id', id);
+
+      // ADD PREFERED TIME
+
       return 'declined';
     } catch (e) {
       return e;

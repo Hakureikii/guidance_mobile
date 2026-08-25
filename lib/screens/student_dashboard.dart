@@ -7,11 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/auth/sessions.dart';
 import '../../services/auth/logout_users.dart';
 
-void main () {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: StudentDashboard(),
-  ));
+void main() {
+  runApp(
+    MaterialApp(debugShowCheckedModeBanner: false, home: StudentDashboard()),
+  );
 }
 
 class StudentDashboard extends StatefulWidget {
@@ -351,9 +350,11 @@ class _StudentDashboardState extends State<StudentDashboard> {
 
   void upcomingAppointments() async {
     final count = await Analytics.upcomingAppointments();
-    setState(() {
-      appointments = count;
-    });
+
+    print(count);
+    // setState(() {
+    //   appointments = count;
+    // });
   }
 
   @override
@@ -410,7 +411,10 @@ class _StudentDashboardState extends State<StudentDashboard> {
             }
 
             if (index == 3) {
-              Navigator.pushReplacementNamed(context, '/studentProfile'); // Profile
+              Navigator.pushReplacementNamed(
+                context,
+                '/studentProfile',
+              ); // Profile
               return;
             }
 

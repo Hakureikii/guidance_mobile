@@ -10,41 +10,58 @@ class Analytics {
     if (role == 'Student') {
       final count = await DatabaseConfiguration.client
           .from('referrals_tb')
-          .select('*', )
+          .select('*')
           .eq('student_id', userId.toString())
           .count();
-        return count.count;
+      return count.count;
     }
 
     if (role == 'Faculty') {
-       final count = await DatabaseConfiguration.client
+      final count = await DatabaseConfiguration.client
           .from('referrals_tb')
           .select('count')
           .eq('faculty_id', userId.toString())
           .count();
-        return count.count;
+      return count.count;
     }
 
     if (role == 'Parent') {
-       final count = await DatabaseConfiguration.client
+      final count = await DatabaseConfiguration.client
           .from('referrals_tb')
           .select('count')
           .eq('parent_id', userId.toString())
           .count();
-        return count.count;
+      return count.count;
     }
   }
 
-  static Future <dynamic> upcomingAppointments() async {
+  static Future<dynamic> upcomingAppointments() async {
     final session = await SharedPreferences.getInstance();
-    final userId = session.getInt('userId');
+    final int? userId = session.getInt('userId');
 
-    final count = await DatabaseConfiguration.client
-      .from('appointments_tb')
-      .select('*, referral_id(referred_student_id)')
-      .eq('status', 'Accepted')
-      .eq('referral_id.referred_student_id', 4)
-      .count();
-    return count.count;
+    return userId;
+
+    // if (userId == null) {
+    //   return null;
+    // }
+
+    // final count = await DatabaseConfiguration.client
+    //     .from('appointments_tb')
+    //     .select('*, referral_id(referred_student_id)')
+    //     .eq('status', 'Accepted')
+    //     .eq('referral_id.referred_student_id', userId)
+    //     .count();
+    // return count.count;
   }
+
+  // static Future<int> sessions() async {
+  //   final session = await SharedPreferences.getInstance();
+  //   final userId = session.getInt('userId');
+
+  //   final sessionCount = await DatabaseConfiguration.client
+  //     .from('session_tb');
+  //     .select('')
+
+  //   return 1;
+  // }
 }
