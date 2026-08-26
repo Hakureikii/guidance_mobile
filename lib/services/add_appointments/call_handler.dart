@@ -5,14 +5,9 @@ class AcceptAppointment {
   static Future<dynamic> acceptAppointment(int appointmentId) async {
     final session = await SharedPreferences.getInstance();
     final studentId = session.getInt('userId');
+
     try {
-      await DatabaseConfiguration.client
-          .from("appointments_tb")
-          .update({"status": 'Accepted'})
-          .eq("appointment_id", appointmentId);
-
       // ADD NEW SESSION RECORD
-
       await DatabaseConfiguration.client.from("session_tb").insert({
         "student_id": studentId,
         "remarks": null,
@@ -20,11 +15,16 @@ class AcceptAppointment {
         "completed": false,
         "walk_in": false,
       });
-
-      return 'accepted';
     } catch (e) {
       return e;
     }
+
+    // SET THE APPOINTMENT TO ACCEPTED
+    await DatabaseConfiguration.client
+        .from("appointments_tb")
+        .update({"status": 'Accepted'})
+        .eq("appointment_id", appointmentId);
+    return 'accepted';
   }
 }
 

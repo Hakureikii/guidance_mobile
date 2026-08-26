@@ -35,33 +35,26 @@ class Analytics {
     }
   }
 
-  static Future<dynamic> upcomingAppointments() async {
+  static Future<dynamic> upcomingSessions() async {
     final session = await SharedPreferences.getInstance();
     final int? userId = session.getInt('userId');
 
-    return userId;
+    // return userId;
+    if (userId == null) {
+      return null;
+    }
 
-    // if (userId == null) {
-    //   return null;
-    // }
-
-    // final count = await DatabaseConfiguration.client
-    //     .from('appointments_tb')
-    //     .select('*, referral_id(referred_student_id)')
-    //     .eq('status', 'Accepted')
-    //     .eq('referral_id.referred_student_id', userId)
-    //     .count();
-    // return count.count;
+    final count = await DatabaseConfiguration.client
+        .from('session_tb')
+        .select('student_id')
+        .eq('student_id', userId)
+        .count();
+    return count.count;
   }
 
-  // static Future<int> sessions() async {
-  //   final session = await SharedPreferences.getInstance();
-  //   final userId = session.getInt('userId');
+  // COUNT ACCOMPLISHED SESSIONS
 
-  //   final sessionCount = await DatabaseConfiguration.client
-  //     .from('session_tb');
-  //     .select('')
-
-  //   return 1;
-  // }
+  static Future<dynamic> sessionsDone() async {
+    final sessionsDone = await DatabaseConfiguration.client.from('').select('');
+  }
 }

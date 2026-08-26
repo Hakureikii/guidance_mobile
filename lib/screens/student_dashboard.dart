@@ -24,7 +24,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
   String? user;
   String? choices;
   dynamic referralSentCount;
-  dynamic appointments;
+  dynamic sessions;
 
   void logoutModal() async {
     showDialog(
@@ -348,13 +348,11 @@ class _StudentDashboardState extends State<StudentDashboard> {
     });
   }
 
-  void upcomingAppointments() async {
-    final count = await Analytics.upcomingAppointments();
-
-    print(count);
-    // setState(() {
-    //   appointments = count;
-    // });
+  void upcomingSessions() async {
+    final count = await Analytics.upcomingSessions();
+    setState(() {
+      sessions = count;
+    });
   }
 
   @override
@@ -365,7 +363,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
     checkNotifications();
     newUser();
     referralSent();
-    upcomingAppointments();
+    upcomingSessions();
   }
 
   int nav = 0;
@@ -604,7 +602,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                               SizedBox(width: 8),
 
                               Text(
-                                appointments == null ? '0' : '$appointments',
+                                sessions == null ? '0' : '$sessions',
                                 style: TextStyle(
                                   color: const Color.fromARGB(
                                     255,
