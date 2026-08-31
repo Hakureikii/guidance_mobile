@@ -404,7 +404,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
             }
 
             if (index == 2) {
-              Navigator.pushReplacementNamed(context, '/'); // Session
+              Navigator.pushReplacementNamed(context, '/sessions'); // Session
               return;
             }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guidance/screens/refer_students.dart';
 import 'package:guidance/screens/guardian_dashboard.dart';
 import 'package:guidance/screens/parent_dashboard.dart';
+import 'package:guidance/screens/sessions.dart';
 import 'package:guidance/screens/student_dashboard.dart';
 import 'package:guidance/screens/faculty_dashboard.dart';
 import 'package:guidance/screens/student_notifications.dart';
@@ -25,6 +26,7 @@ void main() async {
         '/referStudents': (context) => ReferStudents(),
         '/studentProfile': (context) => StudentProfile(),
         '/studentNotifications': (context) => StudentNotifications(),
+        '/sessions': (context) => SessionScreen(),
       },
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),

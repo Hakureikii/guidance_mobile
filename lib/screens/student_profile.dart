@@ -553,7 +553,10 @@ class _StudentProfileState extends State<StudentProfile> {
             });
 
             if (index == 0) {
-              Navigator.pushReplacementNamed(context, '/'); // Home
+              Navigator.pushReplacementNamed(
+                context,
+                '/studentDashboard',
+              ); // Home
               return;
             }
 
@@ -566,7 +569,7 @@ class _StudentProfileState extends State<StudentProfile> {
             }
 
             if (index == 2) {
-              Navigator.pushReplacementNamed(context, '/'); // Session
+              Navigator.pushReplacementNamed(context, '/sessions'); // Session
               return;
             }
 

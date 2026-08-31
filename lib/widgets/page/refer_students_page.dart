@@ -191,21 +191,24 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
             }
 
             if (index == 2) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/setAppointments',
-              ); // Session
+              Navigator.pushReplacementNamed(context, '/sessions'); // Session
               return;
             }
 
             if (index == 3) {
-              Navigator.pushReplacementNamed(context, role == 'Student' ? '/studentProfile' : '/'); // Profile
+              Navigator.pushReplacementNamed(
+                context,
+                role == 'Student' ? '/studentProfile' : '/',
+              ); // Profile
               return;
             }
 
             if (index == 4) {
               if (role == 'Student') {
-                Navigator.pushReplacementNamed(context, '/studentNotifications'); // Notifications
+                Navigator.pushReplacementNamed(
+                  context,
+                  '/studentNotifications',
+                ); // Notifications
                 return;
               }
             }
@@ -242,7 +245,8 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
 
       backgroundColor: Color(0xFFF4F6F5),
 
-      floatingActionButton: role == 'Guardian' || role == 'Parent' || role == 'Faculty'
+      floatingActionButton:
+          role == 'Guardian' || role == 'Parent' || role == 'Faculty'
           ? null
           : FloatingActionButton(
               elevation: 6,
