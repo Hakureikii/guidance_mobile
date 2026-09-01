@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/auth/logout_users.dart';
+import '../services/sessions/student_sessions.dart';
 
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: SessionScreen()));
@@ -91,6 +92,23 @@ class _SessionScreenState extends State<SessionScreen> {
       }
       Navigator.pushReplacementNamed(context, '/loginPage');
     }
+  }
+
+  Future<dynamic> studentSessionRecord() async {
+    final sessions = await StudentSessions.sessions();
+    debugPrint(sessions.toString());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    studentSessionRecord();
+    // session();
+    // screenAccess();
+    // checkNotifications();
+    // newUser();
+    // referralSent();
+    // upcomingSessions();
   }
 
   int nav = 2;
