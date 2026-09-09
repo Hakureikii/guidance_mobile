@@ -45,9 +45,10 @@ class Analytics {
     }
 
     final count = await DatabaseConfiguration.client
-        .from('session_tb')
-        .select('student_id')
-        .eq('student_id', userId)
+        .from('appointments_tb')
+        .select('referral_id!inner(referred_student_id)')
+        .eq('referral_id.referred_student_id', userId.toString())
+        .eq('status', 'Accepted')
         .count();
     return count.count;
   }

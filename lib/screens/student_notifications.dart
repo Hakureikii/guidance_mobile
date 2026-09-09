@@ -42,9 +42,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
           actions: [
             TextButton(
               onPressed: () {
-                if (context.mounted) {
-                  Navigator.of(context).pop();
-                }
+                if (context.mounted) Navigator.of(context).pop();
               },
               child: Text('No'),
             ),
@@ -56,9 +54,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
   }
 
   void logout() async {
-    if (context.mounted) {
-      Navigator.of(context).pop();
-    }
+    if (context.mounted) Navigator.of(context).pop();
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -91,9 +87,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
     final user = await LogoutUsers.logout();
 
     if (user == 'session_clear') {
-      if (context.mounted) {
-        Navigator.of(context).pop();
-      }
+      if (context.mounted) Navigator.of(context).pop();
       Navigator.pushReplacementNamed(context, '/loginPage');
     }
   }
@@ -106,7 +100,6 @@ class _StudentNotificationsState extends State<StudentNotifications> {
   }
 
   void acceptAppointmentModal(int id) {
-    // popup consent modal
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -134,9 +127,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
           actions: [
             TextButton(
               onPressed: () {
-                if (context.mounted) {
-                  Navigator.of(context).pop();
-                }
+                if (context.mounted) Navigator.of(context).pop();
               },
               child: Text('Close'),
             ),
@@ -153,9 +144,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
   }
 
   void acceptAppointment(int id) async {
-    if (context.mounted) {
-      Navigator.of(context).pop();
-    }
+    if (context.mounted) Navigator.of(context).pop();
 
     final response = await AcceptAppointment.acceptAppointment(id);
     if (response == 'accepted') {
@@ -182,9 +171,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
             actions: [
               TextButton(
                 onPressed: () {
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-                  }
+                  if (context.mounted) Navigator.of(context).pop();
                 },
                 child: Text('Close'),
               ),
@@ -230,9 +217,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
           actions: [
             TextButton(
               onPressed: () {
-                if (context.mounted) {
-                  Navigator.of(context).pop();
-                }
+                if (context.mounted) Navigator.of(context).pop();
               },
               child: Text('Close'),
             ),
@@ -249,9 +234,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
   }
 
   void declineAppointment(int id) async {
-    if (context.mounted) {
-      Navigator.of(context).pop();
-    }
+    if (context.mounted) Navigator.of(context).pop();
 
     final response = await DeclineAppointment.declineAppointment(
       id,
@@ -282,9 +265,7 @@ class _StudentNotificationsState extends State<StudentNotifications> {
             actions: [
               TextButton(
                 onPressed: () {
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-                  }
+                  if (context.mounted) Navigator.of(context).pop();
                 },
                 child: Text('Close'),
               ),
@@ -304,6 +285,25 @@ class _StudentNotificationsState extends State<StudentNotifications> {
     });
   }
 
+  void navigateBack() {
+    if (role == 'Student') {
+      Navigator.pushReplacementNamed(context, '/studentDashboard');
+      return;
+    }
+    if (role == 'Parent') {
+      Navigator.pushReplacementNamed(context, '/');
+      return;
+    }
+    if (role == 'Guardian') {
+      Navigator.pushReplacementNamed(context, '/');
+      return;
+    }
+    if (role == 'Faculty') {
+      Navigator.pushReplacementNamed(context, '/');
+      return;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -311,33 +311,13 @@ class _StudentNotificationsState extends State<StudentNotifications> {
     checkNotifications();
   }
 
-  void navigateBack() {
-    if (role == 'Student') {
-      Navigator.pushReplacementNamed(context, '/studentDashboard'); // Home
-      return;
-    }
-
-    if (role == 'Parent') {
-      Navigator.pushReplacementNamed(context, '/'); // Home
-      return;
-    }
-
-    if (role == 'Guardian') {
-      Navigator.pushReplacementNamed(context, '/'); // Home
-      return;
-    }
-
-    if (role == 'Faculty') {
-      Navigator.pushReplacementNamed(context, '/'); // Home
-      return;
-    }
-  }
-
   int nav = 4;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF4F6F5),
+
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 55,
@@ -357,7 +337,6 @@ class _StudentNotificationsState extends State<StudentNotifications> {
                 onPressed: navigateBack,
               ),
             ),
-
             Text(
               'Notifications',
               style: TextStyle(
@@ -367,7 +346,6 @@ class _StudentNotificationsState extends State<StudentNotifications> {
                 fontSize: 20,
               ),
             ),
-
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.12,
               child: IconButton(
@@ -396,51 +374,31 @@ class _StudentNotificationsState extends State<StudentNotifications> {
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
             fontSize: 12,
-            color: Colors.white, // optional, overridden by selectedItemColor
+            color: Colors.white,
           ),
           onTap: (index) {
-            setState(() {
-              nav = index;
-            });
-
+            setState(() => nav = index);
             if (index == 0) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/studentDashboard',
-              ); // Home
+              Navigator.pushReplacementNamed(context, '/studentDashboard');
               return;
             }
-
             if (index == 1) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/referStudents',
-              ); // Refer
+              Navigator.pushReplacementNamed(context, '/referStudents');
               return;
             }
-
             if (index == 2) {
-              Navigator.pushReplacementNamed(context, '/sessions'); // Session
+              Navigator.pushReplacementNamed(context, '/sessions');
               return;
             }
-
             if (index == 3) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/studentProfile',
-              ); // Profile
+              Navigator.pushReplacementNamed(context, '/studentProfile');
               return;
             }
-
             if (index == 4) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/studentNotifications',
-              ); // Notifications
+              Navigator.pushReplacementNamed(context, '/studentNotifications');
               return;
             }
           },
-
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
@@ -465,219 +423,285 @@ class _StudentNotificationsState extends State<StudentNotifications> {
           ],
         ),
       ),
+
       body: notifications == null
-          ? SizedBox(
-              width: double.infinity,
+          ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(),
-                  Text('Loading Notifications'),
+                  CircularProgressIndicator(color: Color(0xFF048c6c)),
+                  SizedBox(height: 12),
+                  Text(
+                    'Loading Notifications',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Color.fromARGB(255, 116, 116, 116),
+                    ),
+                  ),
                 ],
               ),
             )
-          : Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 8),
-                        Container(
-                          padding: EdgeInsets.only(left: 20),
-                          width: double.infinity,
-                          child: Text(
-                            'Calls',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              color: const Color.fromARGB(255, 116, 116, 116),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 8),
-
-                        SizedBox(
-                          width: double.infinity,
-                          child: Column(
-                            children: [
-                              for (int i = 0; i < notifications.length; i++)
-                                // Notifications Card
-                                Container(
-                                  margin: EdgeInsets.only(bottom: 10),
-                                  padding: EdgeInsets.all(20),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.93,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: Colors.grey,
-                                      width: 0.25,
-                                      strokeAlign: BorderSide.strokeAlignInside,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'You are requested to visit the guidance office.',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-
-                                      SizedBox(height: 8),
-
-                                      Text(
-                                        'When: ${notifications[i]['time']}',
-                                        style: TextStyle(fontFamily: 'Poppins'),
-                                      ),
-
-                                      Text(
-                                        'Purpose: ${notifications[i]['purpose']}',
-                                        style: TextStyle(fontFamily: 'Poppins'),
-                                      ),
-
-                                      SizedBox(height: 8),
-
-                                      Column(
-                                        children: [
-                                          notifications[i]['status'] ==
-                                                  'Accepted'
-                                              ? Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0XFF048c6c),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          20,
-                                                        ),
-                                                  ),
-                                                  width:
-                                                      MediaQuery.of(
-                                                        context,
-                                                      ).size.width *
-                                                      0.3,
-                                                  child: Text(
-                                                    'Accepted',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontFamily: 'Poppins',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                )
-                                              : notifications[i]['status'] ==
-                                                    'Declined'
-                                              ? Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    color: Color.fromARGB(
-                                                      255,
-                                                      140,
-                                                      4,
-                                                      4,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          20,
-                                                        ),
-                                                  ),
-                                                  width:
-                                                      MediaQuery.of(
-                                                        context,
-                                                      ).size.width *
-                                                      0.3,
-                                                  child: Text(
-                                                    'Declined',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontFamily: 'Poppins',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                )
-                                              : Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    OutlinedButton(
-                                                      style:
-                                                          OutlinedButton.styleFrom(
-                                                            side: BorderSide(
-                                                              color: Colors
-                                                                  .redAccent,
-                                                            ),
-                                                            foregroundColor:
-                                                                Colors
-                                                                    .redAccent,
-                                                          ),
-                                                      onPressed: () {
-                                                        declineAppointmentModal(
-                                                          notifications[i]['referral_id']['referral_id'],
-                                                        );
-                                                      },
-                                                      child: Text(
-                                                        'Decline',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Poppins',
-                                                        ),
-                                                      ),
-                                                    ),
-
-                                                    SizedBox(width: 8),
-
-                                                    OutlinedButton(
-                                                      style:
-                                                          OutlinedButton.styleFrom(
-                                                            side: BorderSide(
-                                                              color: Color(
-                                                                0xFF048c6c,
-                                                              ),
-                                                            ),
-                                                            foregroundColor:
-                                                                Color(
-                                                                  0xFF048c6c,
-                                                                ),
-                                                          ),
-                                                      onPressed: () {
-                                                        acceptAppointmentModal(
-                                                          notifications[i]['appointment_id'],
-                                                        );
-                                                      },
-                                                      child: Text(
-                                                        'Accept',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Poppins',
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ],
+          : SingleChildScrollView(
+              padding: EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 4),
+                  Text(
+                    'CALLS',
+                    style: TextStyle(
+                      letterSpacing: 2,
+                      fontSize: 11,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 116, 116, 116),
                     ),
+                  ),
+                  SizedBox(height: 10),
+
+                  notifications.isEmpty
+                      ? _emptyState()
+                      : Column(
+                          children: [
+                            for (int i = 0; i < notifications.length; i++)
+                              _notificationCard(i),
+                          ],
+                        ),
+                ],
+              ),
+            ),
+    );
+  }
+
+  // ── Notification card ─────────────────────────────────────────────────────────
+
+  Widget _notificationCard(int i) {
+    final notif = notifications[i];
+    final status = notif['status'] ?? '';
+    final isPending = status != 'Accepted' && status != 'Declined';
+
+    final iconBg = status == 'Accepted'
+        ? Color(0xFFE1F5EE)
+        : status == 'Declined'
+        ? Color(0xFFFCEBEB)
+        : Color(0xFFE1F5EE);
+
+    final iconColor = status == 'Declined'
+        ? Color(0xFFA32D2D)
+        : Color(0xFF048c6c);
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey, width: 0.25),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header row — icon + message
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: iconBg,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(Icons.phone_outlined, color: iconColor, size: 16),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'You are requested to visit the guidance office.',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 10),
+
+          // Meta rows
+          Row(
+            children: [
+              Icon(
+                Icons.access_time_rounded,
+                size: 12,
+                color: Color(0xFF888780),
+              ),
+              SizedBox(width: 5),
+              Text(
+                '${notif['time']}',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 11,
+                  color: Color(0xFF888780),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 3),
+          Row(
+            children: [
+              Icon(
+                Icons.info_outline_rounded,
+                size: 12,
+                color: Color(0xFF888780),
+              ),
+              SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  '${notif['purpose']}',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 11,
+                    color: Color(0xFF888780),
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 10),
+
+          Divider(
+            color: Colors.black.withOpacity(0.07),
+            thickness: 0.5,
+            height: 0,
+          ),
+
+          SizedBox(height: 10),
+
+          // Action area
+          if (isPending)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.redAccent),
+                    foregroundColor: Colors.redAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {
+                    declineAppointmentModal(
+                      notifications[i]['referral_id']['referral_id'],
+                    );
+                  },
+                  child: Text(
+                    'Decline',
+                    style: TextStyle(fontFamily: 'Poppins', fontSize: 11),
+                  ),
+                ),
+                SizedBox(width: 8),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Color(0xFF048c6c)),
+                    foregroundColor: Color(0xFF048c6c),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {
+                    acceptAppointmentModal(notifications[i]['appointment_id']);
+                  },
+                  child: Text(
+                    'Accept',
+                    style: TextStyle(fontFamily: 'Poppins', fontSize: 11),
                   ),
                 ),
               ],
+            )
+          else
+            _statusBadge(status),
+        ],
+      ),
+    );
+  }
+
+  // ── Status badge ──────────────────────────────────────────────────────────────
+
+  Widget _statusBadge(String status) {
+    Color bg;
+    Color fg;
+
+    switch (status) {
+      case 'Accepted':
+        bg = Color(0xFFE1F5EE);
+        fg = Color(0xFF0F6E56);
+        break;
+      case 'Declined':
+        bg = Color(0xFFFCEBEB);
+        fg = Color(0xFFA32D2D);
+        break;
+      default:
+        bg = Color(0xFFFAEEDA);
+        fg = Color(0xFF854F0B);
+    }
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        status,
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+          color: fg,
+        ),
+      ),
+    );
+  }
+
+  // ── Empty state ───────────────────────────────────────────────────────────────
+
+  Widget _emptyState() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 36),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey, width: 0.25),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            Icon(
+              Icons.notifications_off_outlined,
+              size: 36,
+              color: Colors.grey.shade300,
             ),
+            SizedBox(height: 10),
+            Text(
+              '-No notifications-',
+              style: TextStyle(
+                color: Color.fromARGB(255, 108, 108, 108),
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
