@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../custom_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginPageContainer extends StatefulWidget {
@@ -45,6 +44,49 @@ class LoginPageContainerState extends State<LoginPageContainer> {
     launchUrl(url);
   }
 
+  // ── Shared input decoration ───────────────────────────────────────────────────
+
+  InputDecoration _inputDecoration({
+    required String hint,
+    required IconData icon,
+    Widget? suffixIcon,
+  }) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 13,
+        color: Colors.black.withOpacity(0.3),
+      ),
+      prefixIcon: Icon(icon, color: Color(0xFF048c6c), size: 18),
+      suffixIcon: suffixIcon,
+      filled: true,
+      fillColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.black.withOpacity(0.1), width: 0.5),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.black.withOpacity(0.1), width: 0.5),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Color(0xFF048c6c), width: 1.5),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.redAccent, width: 1),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.redAccent, width: 1.5),
+      ),
+      errorStyle: TextStyle(fontFamily: 'Poppins', fontSize: 10),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +102,6 @@ class LoginPageContainerState extends State<LoginPageContainer> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Icon badge
                     Container(
                       width: 72,
                       height: 72,
@@ -126,45 +167,52 @@ class LoginPageContainerState extends State<LoginPageContainer> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Email
+
+                        // ── Email ──────────────────────────────────────────────
                         _fieldLabel('Email'),
                         SizedBox(height: 6),
-                        _fieldWrapper(
-                          child: CustomField(
-                            isObscured: false,
-                            textController: widget.emailController,
-                            validator: widget.emailValidator,
-                            icon: Icons.email_outlined,
+                        TextFormField(
+                          controller: widget.emailController,
+                          validator: widget.emailValidator,
+                          keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(fontFamily: 'Poppins', fontSize: 13),
+                          decoration: _inputDecoration(
                             hint: 'sample@gmail.com',
-                            label: 'Email',
-                            readOnly: false,
+                            icon: Icons.email_outlined,
                           ),
                         ),
 
                         SizedBox(height: 14),
 
-                        // Password
+                        // ── Password ───────────────────────────────────────────
                         _fieldLabel('Password'),
                         SizedBox(height: 6),
-                        _fieldWrapper(
-                          child: PasswordField(
-                            validator: widget.passwordValidator,
-                            passwordToggle: () {
-                              setState(() {
-                                isObscured = !isObscured;
-                              });
-                            },
-                            isObscured: isObscured,
-                            textController: widget.passwordController,
-                            icon: Icons.lock_outline,
+                        TextFormField(
+                          controller: widget.passwordController,
+                          validator: widget.passwordValidator,
+                          obscureText: isObscured,
+                          style: TextStyle(fontFamily: 'Poppins', fontSize: 13),
+                          decoration: _inputDecoration(
                             hint: '••••••••',
-                            label: 'Password',
+                            icon: Icons.lock_outline,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                isObscured
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Color(0xFF888780),
+                                size: 18,
+                              ),
+                              onPressed: () {
+                                setState(() => isObscured = !isObscured);
+                              },
+                            ),
                           ),
                         ),
 
                         SizedBox(height: 14),
 
-                        // Role
+                        // ── Role dropdown ──────────────────────────────────────
                         _fieldLabel('Role'),
                         SizedBox(height: 6),
                         Container(
@@ -210,7 +258,7 @@ class LoginPageContainerState extends State<LoginPageContainer> {
 
                         SizedBox(height: 24),
 
-                        // Login button
+                        // ── Login button ───────────────────────────────────────
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton.icon(
@@ -238,7 +286,7 @@ class LoginPageContainerState extends State<LoginPageContainer> {
 
                         SizedBox(height: 16),
 
-                        // Register link
+                        // ── Register link ──────────────────────────────────────
                         Center(
                           child: TextButton(
                             onPressed: _register,
@@ -251,7 +299,9 @@ class LoginPageContainerState extends State<LoginPageContainer> {
                                 children: [
                                   TextSpan(
                                     text: "Don't have an account? ",
-                                    style: TextStyle(color: Color(0xFF888780)),
+                                    style: TextStyle(
+                                      color: Color(0xFF888780),
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'Register here',
@@ -289,20 +339,6 @@ class LoginPageContainerState extends State<LoginPageContainer> {
         color: Color(0xFF888780),
         letterSpacing: 0.7,
       ),
-    );
-  }
-
-  // ── Field wrapper ─────────────────────────────────────────────────────────────
-  // Wraps CustomField / PasswordField in the same white card style
-
-  Widget _fieldWrapper({required Widget child}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.black.withOpacity(0.1), width: 0.5),
-      ),
-      child: child,
     );
   }
 }
