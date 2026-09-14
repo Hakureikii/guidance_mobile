@@ -7,6 +7,9 @@ import 'package:guidance/screens/student_dashboard.dart';
 import 'package:guidance/screens/faculty_dashboard.dart';
 import 'package:guidance/screens/student_notifications.dart';
 import 'package:guidance/screens/student_profile.dart';
+import 'package:guidance/screens/monitor_child.dart';
+import 'package:guidance/screens/parent_profile.dart';
+import 'package:guidance/screens/parent_notifications.dart';
 import 'widgets/page/login_page.dart';
 import 'utils/input_validators.dart';
 import 'services/auth/login_users.dart';
@@ -24,7 +27,10 @@ void main() async {
         '/guardianDashboard': (context) => GuardianDashboard(),
         '/facultyDashboard': (context) => FacultyDashboard(),
         '/referStudents': (context) => ReferStudents(),
+        '/monitorChild': (context) => MonitorChild(),
         '/studentProfile': (context) => StudentProfile(),
+        '/parentProfile': (context) => ParentProfile(),
+        '/parentNotifications': (context) => ParentNotifications(),
         '/studentNotifications': (context) => StudentNotifications(),
         '/sessions': (context) => SessionScreen(),
       },
