@@ -1,7 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../database/database_configuration.dart';
-import '../../services/auth/sessions.dart';
 
 class StudentSessions {
   static Future<dynamic> sessions() async {

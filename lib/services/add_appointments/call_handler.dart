@@ -31,7 +31,7 @@ class AcceptAppointment {
 class DeclineAppointment {
   static Future<dynamic> declineAppointment(int id, String reason) async {
     try {
-      final response = await DatabaseConfiguration.client
+        await DatabaseConfiguration.client
           .from('appointments_tb')
           .update({'status': 'Declined', 'reason_for_declining': reason})
           .eq('referral_id', id);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:guidance/services/analytics/data_count.dart';
-import 'package:guidance/services/auth/logout_users.dart';
 import 'package:guidance/services/auth/sessions.dart';
 import '../widgets/app_navigation.dart';
 

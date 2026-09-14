@@ -133,8 +133,6 @@ class _SessionScreenState extends State<SessionScreen> {
   int get _upcomingCount => _upcoming.length;
   int get _completedCount =>
       sessionData.where((r) => _getStatus(r) == 'Completed').length;
-  int get _pendingCount =>
-      sessionData.where((r) => _getStatus(r) == 'Accepted').length;
 
   // ── Bottom sheet ──────────────────────────────────────────────────────────────
 

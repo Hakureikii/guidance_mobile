@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:guidance/services/auth/sessions.dart';
-import '../../services/auth/logout_users.dart';
 import '../custom_field.dart';
 import '../radio_groups.dart';
 import '../../utils/input_validators.dart';

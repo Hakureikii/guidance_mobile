@@ -318,7 +318,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     onPressed: () async {
                       final sessions = await SharedPreferences.getInstance();
                       final userId = sessions.getInt('userId');
-                      final response = await DatabaseConfiguration.client
+                      await DatabaseConfiguration.client
                           .from('student_tb')
                           .update({'assessed': true})
                           .eq('student_id', userId.toString());
@@ -338,7 +338,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
   }
 
   void checkNotifications() async {
-    final notif = await Notifications.studentNotifications();
+    await Notifications.studentNotifications();
   }
 
   void referralSent() async {
