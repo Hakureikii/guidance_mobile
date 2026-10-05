@@ -25,24 +25,29 @@ class _MonitorChildState extends State<MonitorChild> {
   // ── Fetch all data ────────────────────────────────────────────────────────────
 
   void _loadAll() async {
-    final data       = await MonitorChildData.getChildData();
-    final total      = await MonitorChildData.getChildTotalReferrals();
-    final accepted   = await MonitorChildData.getChildAcceptedReferrals();
-    final declined   = await MonitorChildData.getChildDeclinedReferrals();
-    final completed  = await MonitorChildData.getChildCompletedSessions();
+    final data = await MonitorChildData.getChildData();
+    final total = await MonitorChildData.getChildTotalReferrals();
+    final accepted = await MonitorChildData.getChildAcceptedReferrals();
+    final declined = await MonitorChildData.getChildDeclinedReferrals();
+    final completed = await MonitorChildData.getChildCompletedSessions();
+
+    if (!mounted) return;
 
     setState(() {
-      childData          = data is List ? data : [];
-      totalReferrals     = total;
-      acceptedReferrals  = accepted;
-      declinedReferrals  = declined;
-      completedSessions  = completed;
-      _loading           = false;
+      childData = data is List ? data : [];
+      totalReferrals = total;
+      acceptedReferrals = accepted;
+      declinedReferrals = declined;
+      completedSessions = completed;
+      _loading = false;
     });
   }
 
   void setRole() async {
     final session = await Sessions.validate();
+
+    if (!mounted) return;
+
     setState(() => role = session);
   }
 
@@ -140,7 +145,6 @@ class _MonitorChildState extends State<MonitorChild> {
                       controller: scrollController,
                       padding: EdgeInsets.all(16),
                       children: [
-
                         // ── Avatar + name hero ─────────────────────────────────
                         Center(
                           child: Column(
@@ -182,7 +186,9 @@ class _MonitorChildState extends State<MonitorChild> {
                               SizedBox(height: 4),
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 3),
+                                  horizontal: 12,
+                                  vertical: 3,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Color(0xFFE1F5EE),
                                   borderRadius: BorderRadius.circular(20),
@@ -207,26 +213,47 @@ class _MonitorChildState extends State<MonitorChild> {
                         SizedBox(height: 8),
                         _sheetCard(
                           children: [
-                            _sheetRow(Icons.person_outline_rounded,
-                                'First name', child['first_name'] ?? 'N/A'),
+                            _sheetRow(
+                              Icons.person_outline_rounded,
+                              'First name',
+                              child['first_name'] ?? 'N/A',
+                            ),
                             _sheetDivider(),
-                            _sheetRow(Icons.person_outline_rounded,
-                                'Middle name', child['middle_name'] ?? 'N/A'),
+                            _sheetRow(
+                              Icons.person_outline_rounded,
+                              'Middle name',
+                              child['middle_name'] ?? 'N/A',
+                            ),
                             _sheetDivider(),
-                            _sheetRow(Icons.person_outline_rounded,
-                                'Last name', child['last_name'] ?? 'N/A'),
+                            _sheetRow(
+                              Icons.person_outline_rounded,
+                              'Last name',
+                              child['last_name'] ?? 'N/A',
+                            ),
                             _sheetDivider(),
-                            _sheetRow(Icons.credit_card_outlined,
-                                'Student number', child['student_number'] ?? 'N/A'),
+                            _sheetRow(
+                              Icons.credit_card_outlined,
+                              'Student number',
+                              child['student_number'] ?? 'N/A',
+                            ),
                             _sheetDivider(),
-                            _sheetRow(Icons.school_outlined,
-                                'Course', child['course'] ?? 'N/A'),
+                            _sheetRow(
+                              Icons.school_outlined,
+                              'Course',
+                              child['course'] ?? 'N/A',
+                            ),
                             _sheetDivider(),
-                            _sheetRow(Icons.layers_outlined,
-                                'Year', '${child['year'] ?? 'N/A'}'),
+                            _sheetRow(
+                              Icons.layers_outlined,
+                              'Year',
+                              '${child['year'] ?? 'N/A'}',
+                            ),
                             _sheetDivider(),
-                            _sheetRow(Icons.group_outlined,
-                                'Section', child['section'] ?? 'N/A'),
+                            _sheetRow(
+                              Icons.group_outlined,
+                              'Section',
+                              child['section'] ?? 'N/A',
+                            ),
                           ],
                         ),
 
@@ -237,21 +264,37 @@ class _MonitorChildState extends State<MonitorChild> {
                         SizedBox(height: 8),
                         Row(
                           children: [
-                            _statCard('Total\nReferrals',
-                                '$totalReferrals', Color(0xFF048c6c), Color(0xFFE1F5EE)),
+                            _statCard(
+                              'Total\nReferrals',
+                              '$totalReferrals',
+                              Color(0xFF048c6c),
+                              Color(0xFFE1F5EE),
+                            ),
                             SizedBox(width: 8),
-                            _statCard('Accepted',
-                                '$acceptedReferrals', Color(0xFF185FA5), Color(0xFFE6F1FB)),
+                            _statCard(
+                              'Accepted',
+                              '$acceptedReferrals',
+                              Color(0xFF185FA5),
+                              Color(0xFFE6F1FB),
+                            ),
                           ],
                         ),
                         SizedBox(height: 8),
                         Row(
                           children: [
-                            _statCard('Declined',
-                                '$declinedReferrals', Color(0xFFA32D2D), Color(0xFFFCEBEB)),
+                            _statCard(
+                              'Declined',
+                              '$declinedReferrals',
+                              Color(0xFFA32D2D),
+                              Color(0xFFFCEBEB),
+                            ),
                             SizedBox(width: 8),
-                            _statCard('Completed\nSessions',
-                                '$completedSessions', Color(0xFF854F0B), Color(0xFFFAEEDA)),
+                            _statCard(
+                              'Completed\nSessions',
+                              '$completedSessions',
+                              Color(0xFF854F0B),
+                              Color(0xFFFAEEDA),
+                            ),
                           ],
                         ),
 
@@ -342,8 +385,7 @@ class _MonitorChildState extends State<MonitorChild> {
     );
   }
 
-  Widget _statCard(
-      String label, String value, Color fg, Color bg) {
+  Widget _statCard(String label, String value, Color fg, Color bg) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(14),
@@ -446,28 +488,28 @@ class _MonitorChildState extends State<MonitorChild> {
       body: _loading
           ? Center(child: CircularProgressIndicator(color: Color(0xFF048c6c)))
           : childData.isEmpty
-              ? _emptyState()
-              : SingleChildScrollView(
-                  padding: EdgeInsets.all(14),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 4),
-                      Text(
-                        'CHILDREN',
-                        style: TextStyle(
-                          letterSpacing: 2,
-                          fontSize: 11,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 116, 116, 116),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      ...childData.map((child) => _childCard(child)),
-                    ],
+          ? _emptyState()
+          : SingleChildScrollView(
+              padding: EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 4),
+                  Text(
+                    'CHILDREN',
+                    style: TextStyle(
+                      letterSpacing: 2,
+                      fontSize: 11,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 116, 116, 116),
+                    ),
                   ),
-                ),
+                  SizedBox(height: 10),
+                  ...childData.map((child) => _childCard(child)),
+                ],
+              ),
+            ),
     );
   }
 
@@ -530,8 +572,11 @@ class _MonitorChildState extends State<MonitorChild> {
                   SizedBox(height: 3),
                   Row(
                     children: [
-                      Icon(Icons.school_outlined,
-                          size: 12, color: Color(0xFF888780)),
+                      Icon(
+                        Icons.school_outlined,
+                        size: 12,
+                        color: Color(0xFF888780),
+                      ),
                       SizedBox(width: 4),
                       Text(
                         '${child['course']}',
@@ -546,8 +591,11 @@ class _MonitorChildState extends State<MonitorChild> {
                   SizedBox(height: 3),
                   Row(
                     children: [
-                      Icon(Icons.layers_outlined,
-                          size: 12, color: Color(0xFF888780)),
+                      Icon(
+                        Icons.layers_outlined,
+                        size: 12,
+                        color: Color(0xFF888780),
+                      ),
                       SizedBox(width: 4),
                       Text(
                         'Year ${child['year']} — Section ${child['section']}',
