@@ -22,7 +22,10 @@ class AcceptAppointment {
     // SET THE APPOINTMENT TO ACCEPTED
     await DatabaseConfiguration.client
         .from("appointments_tb")
-        .update({"status": 'Accepted'})
+        .update({
+          "status": 'Accepted',
+          "is_read": true,
+          })
         .eq("appointment_id", appointmentId);
     return 'accepted';
   }
@@ -33,7 +36,11 @@ class DeclineAppointment {
     try {
         await DatabaseConfiguration.client
           .from('appointments_tb')
-          .update({'status': 'Declined', 'reason_for_declining': reason})
+          .update({
+            'status': 'Declined',
+            'is_read': true,
+            'reason_for_declining': reason
+            })
           .eq('referral_id', id);
 
       // ADD PREFERED TIME

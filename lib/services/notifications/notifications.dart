@@ -11,7 +11,6 @@ class Notifications {
           .select(
             '*, referral_id!inner(referred_student_id, referral_id), is_read',
           )
-          .eq('is_read', false)
           .eq('referral_id.referred_student_id', '$userId')
           .order('appointment_date', ascending: false);
       return notif;

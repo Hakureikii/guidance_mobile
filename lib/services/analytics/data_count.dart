@@ -56,6 +56,6 @@ class Analytics {
   // COUNT ACCOMPLISHED SESSIONS
 
   static Future<dynamic> sessionsDone() async {
-    final sessionsDone = await DatabaseConfiguration.client.from('').select('');
+    await DatabaseConfiguration.client.from('').select('');
   }
 }

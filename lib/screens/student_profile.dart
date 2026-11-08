@@ -4,6 +4,7 @@ import 'package:guidance/services/auth/sessions.dart';
 import 'package:guidance/database/database_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:guidance/widgets/app_navigation.dart';
 
 class StudentProfile extends StatefulWidget {
   const StudentProfile({super.key});
@@ -18,7 +19,7 @@ class _StudentProfileState extends State<StudentProfile> {
   String? studentId;
   String? email;
   String? course;
-  String? role;
+  String role = '';
   int? userId;
   String? token;
 
@@ -226,66 +227,68 @@ class _StudentProfileState extends State<StudentProfile> {
         ),
       ),
 
-      bottomNavigationBar: SizedBox(
-        height: 65,
-        child: BottomNavigationBar(
-          backgroundColor: Color(0xFF048c6c),
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white70,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: nav,
-          selectedLabelStyle: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-            color: Colors.white,
-          ),
-          onTap: (index) {
-            setState(() => nav = index);
-            if (index == 0) {
-              Navigator.pushReplacementNamed(context, '/studentDashboard');
+      bottomNavigationBar: AppNavigation.bottomNavigationBar(
+        context: context,
+        role: role,
+        currentIndex: nav,
+        onIndexChanged: (index) {
+          setState(() {
+            nav = index;
+          });
+
+          if (index == 0) {
+            Navigator.pushReplacementNamed(
+              context,
+              '/studentDashboard',
+            ); // Home
+            return;
+          }
+
+          if (index == 1) {
+            Navigator.pushReplacementNamed(context, '/referStudents'); // Refer
+            return;
+          }
+
+          if (index == 2) {
+            role == 'Student'
+                ? Navigator.pushReplacementNamed(context, '/sessions')
+                : Navigator.pushReplacementNamed(
+                    context,
+                    '/monitorChild',
+                  ); // Session
+            return;
+          }
+
+          if (index == 3) {
+            Navigator.pushReplacementNamed(
+              context,
+              role == 'Student'
+                  ? '/studentProfile'
+                  : role == 'Parent'
+                  ? '/parentProfile'
+                  : role == 'Guardian'
+                  ? '/guardianProfile'
+                  : '/facultyProfile',
+            ); // Profile
+            return;
+          }
+
+          if (index == 4) {
+            if (role == 'Student') {
+              Navigator.pushReplacementNamed(
+                context,
+                role == 'Student'
+                    ? '/studentNotifications'
+                    : role == 'Parent'
+                    ? '/parentNotifications'
+                    : role == 'Guardian'
+                    ? '/guardianNotifications'
+                    : '/facultyNotifications',
+              ); // Notifications
               return;
             }
-            if (index == 1) {
-              Navigator.pushReplacementNamed(context, '/referStudents');
-              return;
-            }
-            if (index == 2) {
-              Navigator.pushReplacementNamed(context, '/sessions');
-              return;
-            }
-            if (index == 3) {
-              Navigator.pushReplacementNamed(context, '/studentProfile');
-              return;
-            }
-            if (index == 4) {
-              Navigator.pushReplacementNamed(context, '/studentNotifications');
-              return;
-            }
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.group_outlined),
-              label: 'Refer',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined),
-              label: 'Session',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_outlined),
-              label: 'Notif',
-            ),
-          ],
-        ),
+          }
+        },
       ),
 
       body: firstname == null

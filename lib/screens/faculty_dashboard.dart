@@ -235,18 +235,18 @@ class _FacultyDashboardState extends State<FacultyDashboard> {
               icon: Icon(Icons.group_outlined),
               label: 'Refer',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined),
-              label: 'Session',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.calendar_today_outlined),
+            //   label: 'Session',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_2_outlined),
               label: 'Profile',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_outlined),
-              label: 'Notif',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.notifications_outlined),
+            //   label: 'Notif',
+            // ),
           ],
         ),
       ),

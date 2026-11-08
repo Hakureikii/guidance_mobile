@@ -91,7 +91,7 @@ class _ReferStudentsPage extends State<ReferStudentsPage> {
           }
 
           if (index == 2) {
-            role == 'Student' || role == 'Faculty'
+            role == 'Student'
                 ? Navigator.pushReplacementNamed(context, '/sessions')
                 : Navigator.pushReplacementNamed(
                     context,

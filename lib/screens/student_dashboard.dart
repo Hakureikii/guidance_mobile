@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:guidance/widgets/radio_groups.dart';
 // import 'package:guidance/database/database_configuration.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
+import 'package:guidance/widgets/app_navigation.dart';  
 import 'package:guidance/services/notifications/notifications.dart';
 import 'package:guidance/services/analytics/data_count.dart';
 import '../../services/auth/sessions.dart';
@@ -23,6 +24,7 @@ class StudentDashboard extends StatefulWidget {
 class _StudentDashboardState extends State<StudentDashboard> {
   String? user;
   String? choices;
+  String role = 'Student';
   dynamic referralSentCount;
   dynamic sessions;
 
@@ -162,83 +164,68 @@ class _StudentDashboardState extends State<StudentDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: 65,
-        child: BottomNavigationBar(
-          backgroundColor: Color(0xFF048c6c),
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white70,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: nav,
-          selectedLabelStyle: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-            color: Colors.white, // optional, overridden by selectedItemColor
-          ),
-          onTap: (index) {
-            setState(() {
-              nav = index;
-            });
+      bottomNavigationBar: AppNavigation.bottomNavigationBar(
+        context: context,
+        role: role,
+        currentIndex: nav,
+        onIndexChanged: (index) {
+          setState(() {
+            nav = index;
+          });
 
-            if (index == 0) {
-              Navigator.pushReplacementNamed(context, '/'); // Home
-              return;
-            }
+          if (index == 0) {
+            Navigator.pushReplacementNamed(
+              context,
+              '/studentDashboard',
+            ); // Home
+            return;
+          }
 
-            if (index == 1) {
+          if (index == 1) {
+            Navigator.pushReplacementNamed(context, '/referStudents'); // Refer
+            return;
+          }
+
+          if (index == 2) {
+            role == 'Student'
+                ? Navigator.pushReplacementNamed(context, '/sessions')
+                : Navigator.pushReplacementNamed(
+                    context,
+                    '/monitorChild',
+                  ); // Session
+            return;
+          }
+
+          if (index == 3) {
+            Navigator.pushReplacementNamed(
+              context,
+              role == 'Student'
+                  ? '/studentProfile'
+                  : role == 'Parent'
+                  ? '/parentProfile'
+                  : role == 'Guardian'
+                  ? '/guardianProfile'
+                  : '/facultyProfile',
+            ); // Profile
+            return;
+          }
+
+          if (index == 4) {
+            if (role == 'Student') {
               Navigator.pushReplacementNamed(
                 context,
-                '/referStudents',
-              ); // Refer
-              return;
-            }
-
-            if (index == 2) {
-              Navigator.pushReplacementNamed(context, '/sessions'); // Session
-              return;
-            }
-
-            if (index == 3) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/studentProfile',
-              ); // Profile
-              return;
-            }
-
-            if (index == 4) {
-              Navigator.pushReplacementNamed(
-                context,
-                '/studentNotifications',
+                role == 'Student'
+                    ? '/studentNotifications'
+                    : role == 'Parent'
+                    ? '/parentNotifications'
+                    : role == 'Guardian'
+                    ? '/guardianNotifications'
+                    : '/facultyNotifications',
               ); // Notifications
               return;
             }
-          },
-
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.group_outlined),
-              label: 'Refer',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined),
-              label: 'Session',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_outlined),
-              label: 'Notif',
-            ),
-          ],
-        ),
+          }
+        },
       ),
 
       backgroundColor: Color(0xFFF4F6F5),

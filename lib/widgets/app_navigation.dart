@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guidance/services/auth/logout_users.dart';
+import 'package:guidance/widgets/notifications_badge.dart';
 
 class AppNavigation {
   // ============================================================
@@ -69,70 +70,36 @@ class AppNavigation {
   // BOTTOM NAVIGATION BAR
   // ============================================================
 
-  static Widget bottomNavigationBar({
-    required BuildContext context,
-    required String role,
-    required int currentIndex,
-    required ValueChanged<int> onIndexChanged,
-  }) {
-    return SizedBox(
-      height: 65,
-      child: BottomNavigationBar(
-        backgroundColor: const Color(0xFF048C6C),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
+  
+static Widget bottomNavigationBar({
+  required BuildContext context,
+  required String role,
+  required int currentIndex,
+  required ValueChanged<int> onIndexChanged,
+}) {
+  final bool isFaculty = role == 'Faculty';
 
-        selectedLabelStyle: const TextStyle(
-          fontFamily: 'Poppins',
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-          color: Colors.white,
-        ),
-
-        onTap: (index) {
-          // Update current navigation index
-          onIndexChanged(index);
-
+  final List<BottomNavigationBarItem> items = isFaculty
+      ? [
           // HOME
-          if (index == 0) {
-            navigateHome(context, role);
-            return;
-          }
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
 
           // REFER
-          if (index == 1) {
-            Navigator.pushReplacementNamed(context, '/referStudents');
-            return;
-          }
-
-          // SESSION / CHILD
-          if (index == 2) {
-            if (role == 'Student') {
-              Navigator.pushReplacementNamed(context, '/sessions');
-            } else {
-              Navigator.pushReplacementNamed(context, '/monitorChild');
-            }
-            return;
-          }
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.group_outlined),
+            label: 'Refer',
+          ),
 
           // PROFILE
-          if (index == 3) {
-            Navigator.pushReplacementNamed(context, getProfileRoute(role));
-            return;
-          }
-
-          // NOTIFICATIONS
-          if (index == 4) {
-            if (role == 'Student') {
-              Navigator.pushReplacementNamed(context, '/studentNotifications');
-            }
-            return;
-          }
-        },
-
-        items: [
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.person_2_outlined),
+            label: 'Profile',
+          ),
+        ]
+      : [
           // HOME
           const BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -150,7 +117,9 @@ class AppNavigation {
             icon: role == 'Guardian' || role == 'Parent'
                 ? const Icon(Icons.child_care)
                 : const Icon(Icons.calendar_today_outlined),
-            label: role == 'Guardian' || role == 'Parent' ? 'Child' : 'Session',
+            label: role == 'Guardian' || role == 'Parent'
+                ? 'Child'
+                : 'Session',
           ),
 
           // PROFILE
@@ -161,13 +130,116 @@ class AppNavigation {
 
           // NOTIFICATIONS
           const BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_outlined),
+            icon: NotificationBadge(),
             label: 'Notif',
           ),
-        ],
+        ];
+
+  return SizedBox(
+    height: 65,
+    child: BottomNavigationBar(
+      backgroundColor: const Color(0xFF048C6C),
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white70,
+      type: BottomNavigationBarType.fixed,
+      currentIndex: currentIndex,
+
+      selectedLabelStyle: const TextStyle(
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.bold,
+        fontSize: 12,
+        color: Colors.white,
       ),
-    );
-  }
+
+      onTap: (index) {
+        onIndexChanged(index);
+
+        // FACULTY NAVIGATION
+        if (isFaculty) {
+          if (index == 0) {
+            Navigator.pushReplacementNamed(
+              context,
+              '/facultyDashboard',
+            );
+            return;
+          }
+
+          if (index == 1) {
+            Navigator.pushReplacementNamed(
+              context,
+              '/referStudents',
+            );
+            return;
+          }
+
+          if (index == 2) {
+            Navigator.pushReplacementNamed(
+              context,
+              '/',
+            );
+            return;
+          }
+
+          return;
+        }
+
+        // HOME
+        if (index == 0) {
+          navigateHome(context, role);
+          return;
+        }
+
+        // REFER
+        if (index == 1) {
+          Navigator.pushReplacementNamed(
+            context,
+            '/referStudents',
+          );
+          return;
+        }
+
+        // SESSION / CHILD
+        if (index == 2) {
+          if (role == 'Student') {
+            Navigator.pushReplacementNamed(
+              context,
+              '/sessions',
+            );
+          } else {
+            Navigator.pushReplacementNamed(
+              context,
+              '/monitorChild',
+            );
+          }
+          return;
+        }
+
+        // PROFILE
+        if (index == 3) {
+          Navigator.pushReplacementNamed(
+            context,
+            getProfileRoute(role),
+          );
+          return;
+        }
+
+        // NOTIFICATIONS
+        if (index == 4) {
+          if (role == 'Student') {
+            Navigator.pushReplacementNamed(
+              context,
+              '/studentNotifications',
+            );
+          }
+          return;
+        }
+      },
+
+      items: items,
+    ),
+  );
+}
+
 
   // ============================================================
   // HOME NAVIGATION
